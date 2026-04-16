@@ -3,7 +3,7 @@
 
   // ===== THEME TOGGLE =====
   var themeToggle = document.getElementById('themeToggle');
-  var currentTheme = localStorage.getItem('theme') || 'dark';
+  var currentTheme = localStorage.getItem('theme') || 'light';
 
   function applyTheme(theme) {
     if (theme === 'light') {
