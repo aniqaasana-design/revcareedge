@@ -112,8 +112,9 @@ module.exports = async (req, res) => {
     try {
       await transporter.sendMail(autoReplyOptions);
     } catch (replyErr) {
-      console.error('Auto-reply email error:', replyErr);
-      return res.status(500).json({ error: 'Unable to send confirmation email' });
+      console.error('Auto-reply email error; notification succeeded:', replyErr);
+      // Do not fail the entire submission if the confirmation email cannot be delivered.
+      return res.status(200).json({ success: true });
     }
 
     res.status(200).json({ success: true });
