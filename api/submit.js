@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
 
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   host: 'smtp.zoho.com',
   port: 587,
   secure: false,
