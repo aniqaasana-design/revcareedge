@@ -557,42 +557,39 @@
     titleObserver.observe(t);
   });
 
-  // ===== EMAILJS FORM SUBMISSION =====
+  // ===== AUDIT FORM SUBMISSION =====
   var auditForm = document.getElementById('auditForm');
   var formStatus = document.getElementById('formStatus');
 
   if (auditForm) {
-    auditForm.addEventListener('submit', function (e) {
+    auditForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
       var submitBtn = document.getElementById('auditSubmitBtn');
       var originalBtnText = submitBtn.innerHTML;
-      submitBtn.innerHTML = 'Sending...';
+      submitBtn.innerHTML = 'Submitting...';
       submitBtn.disabled = true;
       formStatus.style.display = 'none';
 
-      // Get current slider selection
-      var sliderDisplay = document.getElementById('sliderDisplay');
-      var collectionsValue = sliderDisplay ? sliderDisplay.textContent : 'Not specified';
-
-      // Use explicit template params rather than form data
-      // Changing practiceName simply to "practice" to avoid any camelCase variable bugs
-      var practiceValue = document.getElementById('auditPractice').value;
-      
-      var templateParams = {
-        fullName: document.getElementById('auditName').value,
-        practice: practiceValue,
-        email: document.getElementById('auditEmail').value,
-        phone: document.getElementById('auditPhone').value,
-        collections: collectionsValue
+      var formData = new FormData(auditForm);
+      var data = {
+        fullName: formData.get('fullName'),
+        practiceName: formData.get('practiceName'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        collectionsRange: parseInt(document.getElementById('collectionsSlider').value),
+        website: formData.get('website') || ''
       };
 
-      console.log('Sending this EXACT object to EmailJS:', templateParams);
-
-      emailjs.send("service_uv08rgo", "template_y5omeaf", templateParams)
-        .then(function (response) {
-          console.log('SUCCESS!', response.status, response.text);
-          formStatus.textContent = 'Thank you! Your audit request has been sent.';
+      try {
+        var response = await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        var result = await response.json();
+        if (result.success) {
+          formStatus.textContent = 'Thank you! We will contact you within 24 hours.';
           formStatus.style.color = 'var(--color-primary)';
           formStatus.style.display = 'block';
           auditForm.reset();
@@ -603,16 +600,20 @@
             var evt = new Event('input');
             collectionsSlider.dispatchEvent(evt);
           }
-        }, function (error) {
-          console.error('FAILED...', error);
-          formStatus.textContent = 'Oops! Something went wrong. Please check console or try again later.';
+        } else {
+          formStatus.textContent = result.error;
           formStatus.style.color = 'red';
           formStatus.style.display = 'block';
-        })
-        .finally(function () {
-          submitBtn.innerHTML = originalBtnText;
-          submitBtn.disabled = false;
-        });
+        }
+      } catch (err) {
+        console.error('Form submission error:', err);
+        formStatus.textContent = 'An error occurred. Please try again.';
+        formStatus.style.color = 'red';
+        formStatus.style.display = 'block';
+      } finally {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+      }
     });
   }
 

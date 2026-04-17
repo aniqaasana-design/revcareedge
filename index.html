@@ -12,12 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function () {
-      emailjs.init("kkY3f_G4U7wbexhJW");
-    })();
-  </script>
   <link rel="icon" href="logo.jpeg">
 </head>
 
@@ -388,6 +382,7 @@
             <div class="fi"><input type="email" id="auditEmail" name="email" placeholder="Email Address" required></div>
             <div class="fi"><input type="tel" id="auditPhone" name="phone" placeholder="Phone Number" required></div>
           </div>
+          <input type="text" name="website" style="display:none;">
           <button type="submit" class="btn-quote" id="auditSubmitBtn">Book a Free Audit →</button>
           <div id="formStatus"
             style="display:none; text-align:center; margin-top:10px; font-size:13px; font-weight:600;"></div>
