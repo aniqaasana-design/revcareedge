@@ -599,8 +599,14 @@
 
         if (result.success) {
           formStatus.textContent = 'Thank you! We will contact you within 24 hours.';
-          formStatus.style.color = 'var(--color-primary)';
+          formStatus.style.color = '#155724';
+          formStatus.style.backgroundColor = '#d4edda';
+          formStatus.style.border = '1px solid #c3e6cb';
+          formStatus.style.padding = '15px';
+          formStatus.style.borderRadius = '8px';
           formStatus.style.display = 'block';
+          formStatus.setAttribute('tabindex', '-1');
+          formStatus.focus();
           auditForm.reset();
           // Reset slider
           var collectionsSlider = document.getElementById('collectionsSlider');
@@ -611,13 +617,21 @@
           }
         } else {
           formStatus.textContent = result.error || 'An error occurred. Please try again.';
-          formStatus.style.color = 'red';
+          formStatus.style.color = '#721c24';
+          formStatus.style.backgroundColor = '#f8d7da';
+          formStatus.style.border = '1px solid #f5c6cb';
+          formStatus.style.padding = '15px';
+          formStatus.style.borderRadius = '8px';
           formStatus.style.display = 'block';
         }
       } catch (err) {
         console.error('Form submission error:', err);
         formStatus.textContent = err.message || 'An error occurred. Please try again.';
-        formStatus.style.color = 'red';
+        formStatus.style.color = '#721c24';
+        formStatus.style.backgroundColor = '#f8d7da';
+        formStatus.style.border = '1px solid #f5c6cb';
+        formStatus.style.padding = '15px';
+        formStatus.style.borderRadius = '8px';
         formStatus.style.display = 'block';
       } finally {
         submitBtn.innerHTML = originalBtnText;

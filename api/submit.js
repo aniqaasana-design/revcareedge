@@ -79,19 +79,70 @@ module.exports = async (req, res) => {
     const monthlyCollections = collectionsMap[collectionsRange];
 
     // Prepare emails
+    const host = req.headers.host || 'revcareedge.com';
+    const protocol = host.includes('localhost') ? 'http' : 'https';
+    const logoUrl = `${protocol}://${host}/logo.jpeg`;
+    const siteUrl = `${protocol}://${host}`;
+
+    const clientHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+        <div style="background-color: #0f172a; padding: 20px; text-align: center;">
+          <img src="${logoUrl}" alt="Rev Care Edge" style="max-height: 50px; border-radius: 4px;" />
+        </div>
+        <div style="padding: 30px;">
+          <h2 style="color: #0f172a; margin-top: 0;">New Audit Request</h2>
+          <p style="font-size: 16px; color: #555;">You have received a new free audit request from your website.</p>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; width: 40%;">Full Name</td><td style="padding: 10px 0; border-bottom: 1px solid #eee;">${fullName}</td></tr>
+            <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold;">Practice Name</td><td style="padding: 10px 0; border-bottom: 1px solid #eee;">${practiceName}</td></tr>
+            <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold;">Email</td><td style="padding: 10px 0; border-bottom: 1px solid #eee;"><a href="mailto:${email}" style="color: #0284c7;">${email}</a></td></tr>
+            <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold;">Phone</td><td style="padding: 10px 0; border-bottom: 1px solid #eee;">${phone}</td></tr>
+            <tr><td style="padding: 10px 0; font-weight: bold;">Monthly Collections</td><td style="padding: 10px 0;">${monthlyCollections}</td></tr>
+          </table>
+        </div>
+        <div style="background-color: #f8fafc; padding: 15px; text-align: center; font-size: 12px; color: #64748b;">
+          This email was sent automatically from the Rev Care Edge website.
+        </div>
+      </div>
+    `;
+
+    const autoReplyHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+        <div style="background-color: #0f172a; padding: 20px; text-align: center;">
+          <img src="${logoUrl}" alt="Rev Care Edge" style="max-height: 50px; border-radius: 4px;" />
+        </div>
+        <div style="padding: 30px;">
+          <h2 style="color: #0f172a; margin-top: 0;">We received your audit request!</h2>
+          <p style="font-size: 16px; color: #555;">Dear <strong>${fullName}</strong>,</p>
+          <p style="font-size: 16px; color: #555; line-height: 1.6;">Thank you for your interest in Rev Care Edge and for taking the first step towards optimizing your practice's revenue cycle.</p>
+          <p style="font-size: 16px; color: #555; line-height: 1.6;">We have successfully received your request for a free practice audit. One of our specialists will review your submission and contact you within <strong>24 hours</strong> using the details provided:</p>
+          <ul style="color: #555; font-size: 15px; line-height: 1.6; background: #f8fafc; padding: 15px 15px 15px 35px; border-radius: 6px;">
+            <li><strong>Practice:</strong> ${practiceName}</li>
+            <li><strong>Phone:</strong> ${phone}</li>
+            <li><strong>Email:</strong> ${email}</li>
+          </ul>
+          <p style="font-size: 16px; color: #555; line-height: 1.6;">In the meantime, feel free to explore our <a href="${siteUrl}" style="color: #0284c7; text-decoration: none; font-weight: bold;">website</a> to learn more about our services.</p>
+          <p style="font-size: 16px; color: #555; margin-top: 30px;">Best regards,<br><strong>The Rev Care Edge Team</strong></p>
+        </div>
+        <div style="background-color: #f8fafc; padding: 15px; text-align: center; font-size: 12px; color: #64748b;">
+          &copy; ${new Date().getFullYear()} Rev Care Edge. All rights reserved.
+        </div>
+      </div>
+    `;
+
     const recipients = [process.env.CLIENT_EMAIL, process.env.ZOHO_EMAIL].filter(Boolean).join(', ');
     const clientMailOptions = {
       from: process.env.ZOHO_EMAIL,
       to: recipients,
       subject: 'New Audit Request',
-      text: `New audit request:\n\nFull Name: ${fullName}\nPractice Name: ${practiceName}\nEmail: ${email}\nPhone: ${phone}\nMonthly Collections: ${monthlyCollections}`
+      html: clientHtml
     };
 
     const autoReplyOptions = {
       from: process.env.ZOHO_EMAIL,
       to: email,
-      subject: 'We received your audit request',
-      text: `Dear ${fullName},\n\nThank you for your interest in Rev Care Edge. We have received your request for a free audit and will contact you within 24 hours.\n\nBest regards,\nRev Care Edge Team`
+      subject: 'We received your audit request - Rev Care Edge',
+      html: autoReplyHtml
     };
 
     // Execute database insert and emails concurrently to avoid Vercel function timeout
