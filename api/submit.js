@@ -78,22 +78,7 @@ module.exports = async (req, res) => {
 
     const monthlyCollections = collectionsMap[collectionsRange];
 
-    const { error } = await supabase
-      .from('audit_requests')
-      .insert({
-        full_name: fullName,
-        practice_name: practiceName,
-        email,
-        phone,
-        monthly_collections: monthlyCollections
-      });
-
-    if (error) {
-      console.error('Supabase error:', error);
-      return res.status(500).json({ error: 'Database error' });
-    }
-
-    // Send email to both notification addresses
+    // Prepare emails
     const recipients = [process.env.CLIENT_EMAIL, process.env.ZOHO_EMAIL].filter(Boolean).join(', ');
     const clientMailOptions = {
       from: process.env.ZOHO_EMAIL,
@@ -102,14 +87,6 @@ module.exports = async (req, res) => {
       text: `New audit request:\n\nFull Name: ${fullName}\nPractice Name: ${practiceName}\nEmail: ${email}\nPhone: ${phone}\nMonthly Collections: ${monthlyCollections}`
     };
 
-    try {
-      await transporter.sendMail(clientMailOptions);
-    } catch (emailErr) {
-      console.error('Notification email error:', emailErr);
-      return res.status(500).json({ error: 'Unable to send notification email' });
-    }
-
-    // Send auto-reply
     const autoReplyOptions = {
       from: process.env.ZOHO_EMAIL,
       to: email,
@@ -117,12 +94,40 @@ module.exports = async (req, res) => {
       text: `Dear ${fullName},\n\nThank you for your interest in Rev Care Edge. We have received your request for a free audit and will contact you within 24 hours.\n\nBest regards,\nRev Care Edge Team`
     };
 
-    try {
-      await transporter.sendMail(autoReplyOptions);
-    } catch (replyErr) {
-      console.error('Auto-reply email error; notification succeeded:', replyErr);
-      // Do not fail the entire submission if the confirmation email cannot be delivered.
-      return res.status(200).json({ success: true });
+    // Execute database insert and emails concurrently to avoid Vercel function timeout
+    const dbPromise = supabase
+      .from('audit_requests')
+      .insert({
+        full_name: fullName,
+        practice_name: practiceName,
+        email,
+        phone,
+        monthly_collections: monthlyCollections
+      }).then(result => ({ type: 'db', result }));
+
+    const notifyPromise = transporter.sendMail(clientMailOptions)
+      .then(() => ({ type: 'notify', error: null }))
+      .catch(err => ({ type: 'notify', error: err }));
+
+    const replyPromise = transporter.sendMail(autoReplyOptions)
+      .then(() => ({ type: 'reply', error: null }))
+      .catch(err => {
+        console.error('Auto-reply email error:', err);
+        return { type: 'reply', error: err };
+      });
+
+    const results = await Promise.all([dbPromise, notifyPromise, replyPromise]);
+    const dbRes = results[0].result;
+    const notifyRes = results[1];
+
+    if (dbRes.error) {
+      console.error('Supabase error:', dbRes.error);
+      return res.status(500).json({ error: 'Database error' });
+    }
+
+    if (notifyRes.error) {
+      console.error('Notification email error:', notifyRes.error);
+      return res.status(500).json({ error: 'Unable to send notification email' });
     }
 
     res.status(200).json({ success: true });
