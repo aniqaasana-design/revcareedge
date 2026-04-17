@@ -20,6 +20,13 @@ module.exports = async (req, res) => {
     return res.status(500).json({ error: 'Server configuration error' });
   }
 
+  console.log('submit invoked', {
+    url: process.env.SUPABASE_URL ? true : false,
+    roleKey: process.env.SUPABASE_SERVICE_ROLE_KEY ? true : false,
+    zohoEmail: process.env.ZOHO_EMAIL ? true : false,
+    clientEmail: process.env.CLIENT_EMAIL ? true : false
+  });
+
   const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
   const transporter = nodemailer.createTransport({
     host: 'smtp.zoho.com',
@@ -33,6 +40,7 @@ module.exports = async (req, res) => {
 
   try {
     const { fullName, practiceName, email, phone, collectionsRange, website } = req.body;
+    console.log('request body', { fullName, practiceName, email, phone, collectionsRange, website });
 
     if (website) {
       return res.status(200).json({ success: true });
