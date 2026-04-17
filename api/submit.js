@@ -85,10 +85,11 @@ module.exports = async (req, res) => {
       return res.status(500).json({ error: 'Database error' });
     }
 
-    // Send email to client
+    // Send email to both notification addresses
+    const recipients = [process.env.CLIENT_EMAIL, process.env.ZOHO_EMAIL].filter(Boolean).join(', ');
     const clientMailOptions = {
       from: process.env.ZOHO_EMAIL,
-      to: process.env.CLIENT_EMAIL,
+      to: recipients,
       subject: 'New Audit Request',
       text: `New audit request:\n\nFull Name: ${fullName}\nPractice Name: ${practiceName}\nEmail: ${email}\nPhone: ${phone}\nMonthly Collections: ${monthlyCollections}`
     };
@@ -96,7 +97,7 @@ module.exports = async (req, res) => {
     try {
       await transporter.sendMail(clientMailOptions);
     } catch (emailErr) {
-      console.error('Client email error:', emailErr);
+      console.error('Notification email error:', emailErr);
       return res.status(500).json({ error: 'Unable to send notification email' });
     }
 
