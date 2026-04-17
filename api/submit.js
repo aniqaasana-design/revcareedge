@@ -1,18 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 const nodemailer = require('nodemailer');
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp.zoho.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.ZOHO_EMAIL,
-    pass: process.env.ZOHO_APP_PASSWORD
-  }
-});
-
 module.exports = async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -31,6 +19,17 @@ module.exports = async (req, res) => {
     console.error('Missing required environment variables');
     return res.status(500).json({ error: 'Server configuration error' });
   }
+
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.zoho.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.ZOHO_EMAIL,
+      pass: process.env.ZOHO_APP_PASSWORD
+    }
+  });
 
   try {
     const { fullName, practiceName, email, phone, collectionsRange, website } = req.body;
