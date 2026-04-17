@@ -587,7 +587,16 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
-        var result = await response.json();
+
+        var result;
+        var contentType = response.headers.get('content-type') || '';
+        if (contentType.indexOf('application/json') !== -1) {
+          result = await response.json();
+        } else {
+          var text = await response.text();
+          throw new Error(text || 'Invalid server response');
+        }
+
         if (result.success) {
           formStatus.textContent = 'Thank you! We will contact you within 24 hours.';
           formStatus.style.color = 'var(--color-primary)';
@@ -601,13 +610,13 @@
             collectionsSlider.dispatchEvent(evt);
           }
         } else {
-          formStatus.textContent = result.error;
+          formStatus.textContent = result.error || 'An error occurred. Please try again.';
           formStatus.style.color = 'red';
           formStatus.style.display = 'block';
         }
       } catch (err) {
         console.error('Form submission error:', err);
-        formStatus.textContent = 'An error occurred. Please try again.';
+        formStatus.textContent = err.message || 'An error occurred. Please try again.';
         formStatus.style.color = 'red';
         formStatus.style.display = 'block';
       } finally {

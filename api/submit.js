@@ -14,16 +14,22 @@ const transporter = nodemailer.createTransport({
 });
 
 module.exports = async (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    return res.status(200).json({ success: true });
   }
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY || !process.env.ZOHO_EMAIL || !process.env.ZOHO_APP_PASSWORD || !process.env.CLIENT_EMAIL) {
+    console.error('Missing required environment variables');
+    return res.status(500).json({ error: 'Server configuration error' });
   }
 
   try {
@@ -88,7 +94,12 @@ module.exports = async (req, res) => {
       text: `New audit request:\n\nFull Name: ${fullName}\nPractice Name: ${practiceName}\nEmail: ${email}\nPhone: ${phone}\nMonthly Collections: ${monthlyCollections}`
     };
 
-    await transporter.sendMail(clientMailOptions);
+    try {
+      await transporter.sendMail(clientMailOptions);
+    } catch (emailErr) {
+      console.error('Client email error:', emailErr);
+      return res.status(500).json({ error: 'Unable to send notification email' });
+    }
 
     // Send auto-reply
     const autoReplyOptions = {
@@ -98,7 +109,12 @@ module.exports = async (req, res) => {
       text: `Dear ${fullName},\n\nThank you for your interest in Rev Care Edge. We have received your request for a free audit and will contact you within 24 hours.\n\nBest regards,\nRev Care Edge Team`
     };
 
-    await transporter.sendMail(autoReplyOptions);
+    try {
+      await transporter.sendMail(autoReplyOptions);
+    } catch (replyErr) {
+      console.error('Auto-reply email error:', replyErr);
+      return res.status(500).json({ error: 'Unable to send confirmation email' });
+    }
 
     res.status(200).json({ success: true });
   } catch (err) {
