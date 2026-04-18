@@ -1990,7 +1990,8 @@ footer {
 }
 
 .fc-link:hover {
-  color: #25d366; /* WhatsApp green color */
+  color: #25d366;
+  /* WhatsApp green color */
 }
 
 .fc-icon {
@@ -2763,6 +2764,7 @@ footer h4 {
     d: path('M0,30 Q250,60 500,30 T1000,30 L1000,60 L0,60 Z');
   }
 }
+
 /* ============================================================
    MEDIA QUERIES — Mobile-First Responsive
    xs:  320px – 480px   → Mobile
@@ -3246,9 +3248,29 @@ footer h4 {
     animation: none !important;
   }
 
-  @keyframes heroGradientShift { 0%, 100% { opacity: 1; } }
-  @keyframes textShimmer        { 0%, 100% { background-position: 0%; } }
-  @keyframes floatOrb           { 0%, 100% { transform: none; } }
+  @keyframes heroGradientShift {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes textShimmer {
+
+    0%,
+    100% {
+      background-position: 0%;
+    }
+  }
+
+  @keyframes floatOrb {
+
+    0%,
+    100% {
+      transform: none;
+    }
+  }
 }
 
 
@@ -3420,7 +3442,9 @@ footer h4 {
     display: none;
   }
 
-  .why-item:hover { transform: none; }
+  .why-item:hover {
+    transform: none;
+  }
 }
 
 
@@ -3535,7 +3559,9 @@ footer h4 {
   }
 
   /* --- CURSOR GLOW (disable on touch likely devices) --- */
-  .cursor-glow { display: none; }
+  .cursor-glow {
+    display: none;
+  }
 }
 
 
