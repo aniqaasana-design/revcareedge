@@ -378,6 +378,140 @@ nav.scrolled {
   box-shadow: 0 8px 25px rgba(var(--color-particle), 0.3);
 }
 
+/* ===== DROPDOWN MENU ===== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dropdown-arrow {
+  font-size: 10px;
+  transition: transform var(--transition-fast);
+}
+
+.dropdown:hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  min-width: 140px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all var(--transition-fast);
+  z-index: 1000;
+  padding: 8px 0;
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+  background: var(--color-surface-2);
+  color: var(--color-primary);
+}
+
+.social-icon {
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+}
+
+/* ===== MOBILE DROPDOWN ===== */
+.mobile-dropdown {
+  width: 100%;
+}
+
+.mobile-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mobile-dropdown-arrow {
+  font-size: 12px;
+  transition: transform var(--transition-fast);
+}
+
+.mobile-dropdown.active .mobile-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.mobile-dropdown-menu {
+  display: none;
+  padding-left: 16px;
+  margin-top: 8px;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-md);
+  margin: 8px 0;
+  padding: 8px 16px;
+  overflow: visible;
+  max-height: none;
+}
+
+.mobile-dropdown.active .mobile-dropdown-menu {
+  display: block;
+}
+
+.mobile-dropdown-menu a {
+  display: block;
+  padding: 12px 0;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color var(--transition-fast);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mobile-dropdown-menu a:last-child {
+  border-bottom: none;
+}
+
+.mobile-dropdown-menu a:hover {
+  color: var(--color-primary);
+}
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -398,6 +532,18 @@ nav.scrolled {
   transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
 .nav-mobile {
   display: none;
   position: absolute;
@@ -413,7 +559,8 @@ nav.scrolled {
 }
 
 .nav-mobile.open {
-  max-height: 400px;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
 }
 
 .nav-mobile a {
@@ -1834,6 +1981,16 @@ footer {
 
 .fc:hover {
   color: #ffffff;
+}
+
+.fc-link {
+  text-decoration: none;
+  color: var(--color-footer-link);
+  transition: color var(--transition-fast);
+}
+
+.fc-link:hover {
+  color: #25d366; /* WhatsApp green color */
 }
 
 .fc-icon {

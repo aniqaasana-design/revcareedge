@@ -181,11 +181,30 @@
   if (hamburger && navMobile) {
     hamburger.addEventListener('click', function () {
       navMobile.classList.toggle('open');
+      hamburger.classList.toggle('open');
     });
     navMobile.querySelectorAll('a').forEach(function (link) {
+      if (link.classList.contains('mobile-dropdown-toggle')) return;
       link.addEventListener('click', function () {
         navMobile.classList.remove('open');
+        hamburger.classList.remove('open');
       });
+    });
+  }
+
+  // ===== MOBILE DROPDOWN =====
+  var mobileDropdownToggle = document.querySelector('.mobile-dropdown-toggle');
+  var mobileDropdown = document.querySelector('.mobile-dropdown');
+  if (mobileDropdownToggle && mobileDropdown) {
+    mobileDropdownToggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation(); // Prevent event bubbling to hamburger menu and parent links
+      e.stopImmediatePropagation();
+      mobileDropdown.classList.toggle('active');
+      var menu = mobileDropdown.querySelector('.mobile-dropdown-menu');
+      if (menu) {
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      }
     });
   }
 
