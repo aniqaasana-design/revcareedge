@@ -90,8 +90,8 @@ module.exports = async (req, res) => {
           <img src="${logoUrl}" alt="Rev Care Edge" style="max-height: 50px; border-radius: 4px;" />
         </div>
         <div style="padding: 30px;">
-          <h2 style="color: #0f172a; margin-top: 0;">New Audit Request</h2>
-          <p style="font-size: 16px; color: #555;">You have received a new free audit request from your website.</p>
+          <h2 style="color: #0f172a; margin-top: 0;">New Analysis Request</h2>
+          <p style="font-size: 16px; color: #555;">You have received a new free practice analysis request from your website.</p>
           <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
             <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; width: 40%;">Full Name</td><td style="padding: 10px 0; border-bottom: 1px solid #eee;">${fullName}</td></tr>
             <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold;">Practice Name</td><td style="padding: 10px 0; border-bottom: 1px solid #eee;">${practiceName}</td></tr>
@@ -112,10 +112,10 @@ module.exports = async (req, res) => {
           <img src="${logoUrl}" alt="Rev Care Edge" style="max-height: 50px; border-radius: 4px;" />
         </div>
         <div style="padding: 30px;">
-          <h2 style="color: #0f172a; margin-top: 0;">We received your audit request!</h2>
+          <h2 style="color: #0f172a; margin-top: 0;">We received your analysis request!</h2>
           <p style="font-size: 16px; color: #555;">Dear <strong>${fullName}</strong>,</p>
           <p style="font-size: 16px; color: #555; line-height: 1.6;">Thank you for your interest in Rev Care Edge and for taking the first step towards optimizing your practice's revenue cycle.</p>
-          <p style="font-size: 16px; color: #555; line-height: 1.6;">We have successfully received your request for a free practice audit. One of our specialists will review your submission and contact you within <strong>24 hours</strong> using the details provided:</p>
+          <p style="font-size: 16px; color: #555; line-height: 1.6;">We have successfully received your request for a free practice analysis. One of our specialists will review your submission and contact you within <strong>24 hours</strong> using the details provided:</p>
           <ul style="color: #555; font-size: 15px; line-height: 1.6; background: #f8fafc; padding: 15px 15px 15px 35px; border-radius: 6px;">
             <li><strong>Practice:</strong> ${practiceName}</li>
             <li><strong>Phone:</strong> ${phone}</li>
@@ -134,14 +134,14 @@ module.exports = async (req, res) => {
     const clientMailOptions = {
       from: process.env.ZOHO_EMAIL,
       to: recipients,
-      subject: 'New Audit Request',
+      subject: 'New Analysis Request',
       html: clientHtml
     };
 
     const autoReplyOptions = {
       from: process.env.ZOHO_EMAIL,
       to: email,
-      subject: 'We received your audit request - Rev Care Edge',
+      subject: 'We received your analysis request - Rev Care Edge',
       html: autoReplyHtml
     };
 

@@ -576,21 +576,21 @@
     titleObserver.observe(t);
   });
 
-  // ===== AUDIT FORM SUBMISSION =====
-  var auditForm = document.getElementById('auditForm');
+  // ===== ANALYSIS FORM SUBMISSION =====
+  var analysisForm = document.getElementById('analysisForm');
   var formStatus = document.getElementById('formStatus');
 
-  if (auditForm) {
-    auditForm.addEventListener('submit', async function (e) {
+  if (analysisForm) {
+    analysisForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      var submitBtn = document.getElementById('auditSubmitBtn');
+      var submitBtn = document.getElementById('analysisSubmitBtn');
       var originalBtnText = submitBtn.innerHTML;
       submitBtn.innerHTML = 'Submitting...';
       submitBtn.disabled = true;
       formStatus.style.display = 'none';
 
-      var formData = new FormData(auditForm);
+      var formData = new FormData(analysisForm);
       var data = {
         fullName: formData.get('fullName'),
         practiceName: formData.get('practiceName'),
@@ -626,7 +626,7 @@
           formStatus.style.display = 'block';
           formStatus.setAttribute('tabindex', '-1');
           formStatus.focus();
-          auditForm.reset();
+          analysisForm.reset();
           // Reset slider
           var collectionsSlider = document.getElementById('collectionsSlider');
           if (collectionsSlider) {
