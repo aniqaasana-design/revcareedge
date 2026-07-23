@@ -1,0 +1,2545 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RevCare Edge - Premium Medical Billing & RCM Solutions</title>
+  <meta name="description"
+    content="Maximize reimbursements and minimize administrative burdens with RevCare Edge's premium, HIPAA-compliant medical billing and practice management solutions.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#101828',
+              green: '#3E7B4F',
+              'green-light': '#EBF5EE',
+              'orange-start': '#F5872E',
+              'orange-end': '#F2650F',
+              body: '#5A6472',
+              'bg-start': '#F8FAFC',
+              'bg-end': '#EEF2F6',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Swiper.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!-- Iconify for Health Icons -->
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
+  <link rel="dns-prefetch" href="https://api.iconify.design">
+  <link rel="preload" href="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js" as="script">
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+</head>
+
+<body class="min-h-full flex flex-col relative antialiased overflow-x-hidden">
+
+  <!-- BACKGROUND & ORBS WRAPPER (Hero-only layer; avoids wave leaking into lower sections) -->
+  <div class="absolute top-0 left-0 w-full h-[780px] md:h-[900px] pointer-events-none z-0 overflow-hidden hero-wave-layer">
+    <!-- Responsive wave background -->
+    <div class="wave-bg absolute inset-0 w-full h-full"></div>
+
+    <!-- Static decorative hero orbs -->
+    <img loading="eager" src="assets/greencir.png" alt=""
+      class="bubble-orb animate-float-1 left-4 top-[15%] w-14 md:left-[10%] md:top-[16%] md:w-28" />
+
+    <img loading="lazy" src="assets/greycir.png" alt=""
+      class="bubble-orb animate-float-2 left-6 top-[32%] w-20 md:left-[8%] md:top-[30%] md:w-40" />
+
+    <img loading="lazy" src="assets/greencir.png" alt=""
+      class="bubble-orb animate-float-3 hidden md:block md:left-[18%] md:top-[60%] md:w-24" />
+
+    <img loading="eager" src="assets/orangecir.png" alt=""
+      class="bubble-orb animate-float-2 right-6 top-[20%] w-14 md:right-[15%] md:top-[18%] md:w-24" />
+
+    <img loading="lazy" src="assets/orangecir.png" alt=""
+      class="bubble-orb animate-float-1 right-4 top-[42%] w-28 md:right-[8%] md:top-[33%] md:w-72" />
+
+    <img loading="lazy" src="assets/greencir.png" alt=""
+      class="bubble-orb animate-float-3 hidden md:block md:right-[18%] md:top-[58%] md:w-28" />
+
+  </div>
+
+  <!-- CONTENT WRAPPER — All page content sits above the fixed background -->
+  <div class="relative z-10">
+
+    <!-- FLOATING NAVIGATION BAR CONTAINER (Fixed at top, ignores clicks outside the navbar element itself) -->
+    <header id="mainHeader"
+      class="fixed top-0 left-0 w-full px-4 pt-4 md:pt-6 z-50 flex justify-center pointer-events-none">
+      <div class="w-full max-w-7xl pointer-events-auto">
+        <nav id="navbar" class="glass-nav rounded-full px-4 py-2.5 md:px-8 md:py-3.5 flex items-center justify-between">
+
+          <!-- Logo Section -->
+          <a href="#" class="flex items-center group min-touch-target" aria-label="RevCare Edge Home">
+            <img src="assets/logo.png" alt="RevCare Edge Logo" class="h-14 md:h-18 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
+          </a>
+
+          <!-- Vertical Divider (Desktop) -->
+          <div class="hidden lg:block h-6 w-px bg-slate-200/80 mx-2"></div>
+
+          <!-- Navigation Links (Desktop/Tablet Menu) -->
+          <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
+
+            <!-- "Our Services" dropdown link -->
+            <div class="relative group/menu py-2">
+              <button id="servicesMenuBtn"
+                class="nav-link text-sm font-semibold text-brand-navy flex items-center space-x-1 cursor-pointer min-touch-target"
+                aria-expanded="false" aria-haspopup="true">
+                <span>Our Services</span>
+                <svg class="w-4 h-4 transition-transform group-hover/menu:translate-y-0.5 duration-200" fill="none"
+                  stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+            </div>
+
+            <a href="#process" class="nav-link text-sm font-semibold text-brand-navy min-touch-target">Process</a>
+            <a href="#why-us" class="nav-link text-sm font-semibold text-brand-navy min-touch-target">Why Us</a>
+
+            <!-- "Specialties" dropdown link -->
+            <div class="relative group/menu py-2">
+              <button id="specialtiesMenuBtn"
+                class="nav-link text-sm font-semibold text-brand-navy flex items-center space-x-1 cursor-pointer min-touch-target"
+                aria-expanded="false" aria-haspopup="true">
+                <span>Specialties</span>
+                <svg class="w-4 h-4 transition-transform group-hover/menu:translate-y-0.5 duration-200" fill="none"
+                  stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+            </div>
+
+            <a href="blog.html" class="nav-link text-sm font-semibold text-brand-navy min-touch-target">Blog</a>
+            <a href="#contact" class="nav-link text-sm font-semibold text-brand-navy min-touch-target">Contact</a>
+          </div>
+
+          <!-- CTA & Mobile Trigger -->
+          <div class="flex items-center space-x-4">
+            <!-- CTA Button (Desktop Navbar) -->
+            <!-- TODO: Swap final phone number inside CTA function or calendar link -->
+            <a href="tel:+18005550199"
+              class="btn-orange-glow hidden md:inline-flex items-center space-x-2 px-5 py-2.5 rounded-full text-white text-xs md:text-sm font-bold min-touch-target"
+              aria-label="Book Free Analysis - Call 1-800-555-0199">
+              <span>Book Free Analysis</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+
+            <!-- Mobile Hamburger Toggle (Visible on Mobile/Tablet) -->
+            <button id="menuToggleBtn"
+              class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full border border-slate-200/80 bg-white/70 hover:bg-white text-brand-navy shadow-sm transition-all focus:outline-none min-touch-target"
+              aria-label="Toggle navigation menu">
+              <svg id="hamburgerIcon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+              </svg>
+              <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- SERVICES MEGA-MENU PANEL (Absolute Child of Floating Navbar) -->
+          <div id="servicesMenuPanel"
+            class="mega-menu-container absolute top-[calc(100%+0.75rem)] left-0 w-full bg-white rounded-[2rem] shadow-[0_30px_70px_-15px_rgba(16,24,40,0.15)] border border-slate-100 p-8 grid grid-cols-1 md:grid-cols-5 gap-8 z-40 overflow-hidden">
+
+            <!-- Column 1: Medical Billing -->
+            <div class="space-y-4">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="medical-icon:billing" class="menu-category-icon" aria-label="Stethoscope"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Medical Billing</h4>
+              </div>
+              <ul class="space-y-1">
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>In-Network & Out-of-Network</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Free Practice Analysis</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Behavioral Health Billing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Dental Billing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Medical Coding</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>AR & Denial Management</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Column 2: Credentialing -->
+            <div class="space-y-4">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="fa6-solid:clipboard-check" class="menu-category-icon" aria-label="Clipboard"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Credentialing</h4>
+              </div>
+              <ul class="space-y-1">
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Initial Credentialing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Re-Credentialing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>CAQH Management</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Provider Licensing</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Column 3: Practice Management -->
+            <div class="space-y-4">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="medical-icon:hospital" class="menu-category-icon" aria-label="Hospital"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Practice Mgmt</h4>
+              </div>
+              <ul class="space-y-1">
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Practice Manager</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Virtual Assistant</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Patient Help Desk</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Column 4: Bookkeeping -->
+            <div class="space-y-4">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="fa6-solid:wallet" class="menu-category-icon" aria-label="Money Bag"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Bookkeeping</h4>
+              </div>
+              <ul class="space-y-1">
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Bookkeeping Services</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Financial Reporting</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Revenue Tracking</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Column 5: Digital Marketing -->
+            <div class="space-y-4">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="fa6-solid:chart-line" class="menu-category-icon" aria-label="Rocket"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider">Digital Marketing</h4>
+              </div>
+              <ul class="space-y-1">
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Website Development</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>SEO Services</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Digital Marketing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Branding</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Mega Menu Footer Call to Action Strip -->
+            <div
+              class="col-span-1 md:col-span-5 bg-gradient-to-r from-slate-50 to-brand-green-light/40 border-t border-slate-100 -mx-8 -mb-8 px-8 py-4.5 flex flex-col md:flex-row items-center justify-between gap-4">
+              <span class="text-xs text-slate-500 font-semibold flex items-center">
+                <span class="w-2 h-2 rounded-full bg-brand-green mr-2 animate-pulse"></span>
+                Maximize your practices reimbursements with our free medical billing analysis.
+              </span>
+              <a href="tel:+18005550199"
+                class="text-xs font-bold text-brand-green hover:underline flex items-center space-x-1 min-touch-target">
+                <span>Book Your Analysis Now</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- SPECIALTIES MEGA-MENU PANEL -->
+          <div id="specialtiesMenuPanel"
+            class="mega-menu-container absolute top-[calc(100%+0.75rem)] left-0 w-full bg-white rounded-[2rem] shadow-[0_30px_70px_-15px_rgba(16,24,40,0.15)] border border-slate-100 p-8 grid grid-cols-1 lg:grid-cols-7 gap-8 z-40 overflow-hidden">
+
+            <!-- Column 1: Behavioral & Mental Health -->
+            <div class="space-y-4 lg:col-span-1">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="medical-icon:mental-health" class="menu-category-icon" aria-label="Mental Health"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider font-sans">Behavioral & Mental
+                </h4>
+              </div>
+              <ul class="space-y-1">
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Behavioral Health</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Psychiatry</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Psychology</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Addiction Treatment</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Column 2: Primary & Specialty Care -->
+            <div class="space-y-4 lg:col-span-1">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="medical-icon:billing" class="menu-category-icon" aria-label="Stethoscope"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider font-sans">Primary & Specialty
+                </h4>
+              </div>
+              <ul class="space-y-1">
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Family Practice</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Internal Medicine</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Primary Care</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Pediatrics</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Women's Health / OB-GYN</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Column 3: Medical Specialties -->
+            <div class="space-y-4 lg:col-span-2">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="medical-icon:hospital" class="menu-category-icon" aria-label="Hospital"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider font-sans">Medical Specialties
+                </h4>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <ul class="space-y-1">
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Cardiology</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Neurology</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Gastroenterology</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Oncology</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Orthopedics</span>
+                    </a>
+                  </li>
+                </ul>
+                <ul class="space-y-1">
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Dermatology</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Nephrology</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Pulmonology</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Endocrinology</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Rheumatology</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Column 4: Surgical & Diagnostic -->
+            <div class="space-y-4 lg:col-span-1">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="medical-icon:surgery" class="menu-category-icon" aria-label="Surgical"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider font-sans">Surgical & Diagnostic
+                </h4>
+              </div>
+              <ul class="space-y-1">
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>General Surgery</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Vascular Surgery</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Plastic Surgery</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Anesthesiology</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Radiology Billing</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"
+                    class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                    <span>Pathology</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Column 5: Therapy & Support Services -->
+            <div class="space-y-4 lg:col-span-2">
+              <div class="flex items-center space-x-2.5 border-b border-slate-100 pb-3">
+                <iconify-icon icon="medical-icon:physical-therapy" class="menu-category-icon" aria-label="Therapy"></iconify-icon>
+                <h4 class="text-xs font-bold text-brand-navy uppercase tracking-wider font-sans">Therapy & Support</h4>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <ul class="space-y-1">
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Physical Therapy</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Occupational Therapy</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Chiropractic</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Acupuncture</span>
+                    </a>
+                  </li>
+                </ul>
+                <ul class="space-y-1">
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Hospice Care</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Palliative Care</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>DME</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#"
+                      class="text-[13px] text-brand-body font-medium hover:text-brand-green transition-all duration-200 py-1.5 flex items-center group/link">
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-brand-green opacity-0 -ml-2 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all mr-2 flex-shrink-0"></span>
+                      <span>Pharmacy Services</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Specialties Mega Menu Footer Call to Action Strip -->
+            <div
+              class="col-span-1 lg:col-span-7 bg-gradient-to-r from-slate-50 to-brand-green-light/40 border-t border-slate-100 -mx-8 -mb-8 px-8 py-4.5 flex flex-col md:flex-row items-center justify-between gap-4">
+              <span class="text-xs text-slate-500 font-semibold flex items-center">
+                <span class="w-2 h-2 rounded-full bg-brand-green mr-2 animate-pulse"></span>
+                Providing highly specialized billing solutions for providers across all major clinical fields.
+              </span>
+              <a href="#"
+                class="text-xs font-bold text-brand-green hover:underline flex items-center space-x-1 min-touch-target">
+                <span>View All Specialties</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+
+          </div>
+
+        </nav>
+      </div>
+    </header>
+
+    <!-- MOBILE DRAWER BACKDROP OVERLAY -->
+    <div id="mobileDrawerOverlay"
+      class="fixed inset-0 bg-slate-950/30 backdrop-blur-xs z-40 hidden transition-opacity duration-300 opacity-0">
+    </div>
+
+    <!-- MOBILE SLIDE-OUT DRAWER PANEL -->
+    <div id="mobileDrawer"
+      class="fixed top-0 right-0 h-[100dvh] max-h-[100dvh] w-[85%] max-w-sm bg-white/95 backdrop-blur-xl shadow-2xl border-l border-slate-100/80 z-50 transform translate-x-full transition-transform duration-300 ease-out flex flex-col p-6 overflow-y-auto">
+
+      <!-- Drawer Header (Inside Mobile Panel) -->
+      <div class="flex items-center justify-between pb-6 border-b border-slate-100 mb-6 flex-shrink-0">
+        <a href="#" class="flex items-center space-x-2">
+          <svg class="h-8 w-8" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#F0F4F1" />
+            <path d="M15 12V28" stroke="#101828" stroke-width="4" stroke-linecap="round" />
+            <path d="M15 12H23C26.866 12 30 15.134 30 19C30 22.866 26.866 26 23 26H15" stroke="#3E7B4F" stroke-width="4"
+              stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M22 26L28 32" stroke="#101828" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="text-sm font-bold text-brand-navy leading-none">RevCare Edge</span>
+        </a>
+        <button id="drawerCloseBtn"
+          class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-200 bg-slate-50 hover:bg-slate-100 text-brand-navy shadow-sm transition-all focus:outline-none min-touch-target"
+          aria-label="Close navigation menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Navigation Stack -->
+      <nav class="flex flex-col space-y-4">
+
+        <!-- Mobile Accordion: Our Services -->
+        <div class="border-b border-slate-100 pb-2">
+          <button id="mobileAccordionBtn"
+            class="mobile-menu-link w-full text-base font-semibold text-brand-navy flex items-center justify-between py-2 focus:outline-none min-touch-target"
+            aria-expanded="false">
+            <span>Our Services</span>
+            <svg class="accordion-chevron w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+
+          <div id="mobileAccordionContent" class="accordion-content pl-2 mt-2 space-y-4 border-l border-slate-100">
+            <!-- Category list in mobile accordion -->
+
+            <!-- Medical Billing Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="medical-icon:billing" class="menu-category-icon" aria-label="Stethoscope"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Medical Billing</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">In-Network &
+                    Out-of-Network</a></li>
+                <li><a href="#" class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Free
+                    Practice Analysis</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Behavioral Health
+                    Billing</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Dental
+                    Billing</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Medical
+                    Coding</a></li>
+                <li><a href="#" class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">AR &
+                    Denial Management</a></li>
+              </ul>
+            </div>
+
+            <!-- Credentialing Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="fa6-solid:clipboard-check" class="menu-category-icon" aria-label="Clipboard"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Credentialing</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Initial
+                    Credentialing</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Re-Credentialing</a>
+                </li>
+                <li><a href="#" class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">CAQH
+                    Management</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Provider
+                    Licensing</a></li>
+              </ul>
+            </div>
+
+            <!-- Practice Management Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="medical-icon:hospital" class="menu-category-icon" aria-label="Hospital"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Practice Mgmt</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Practice
+                    Manager</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Virtual
+                    Assistant</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Patient
+                    Help Desk</a></li>
+              </ul>
+            </div>
+
+            <!-- Bookkeeping Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="fa6-solid:wallet" class="menu-category-icon" aria-label="Money Bag"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Bookkeeping</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Bookkeeping
+                    Services</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Financial
+                    Reporting</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Revenue
+                    Tracking</a></li>
+              </ul>
+            </div>
+
+            <!-- Digital Marketing Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="fa6-solid:chart-line" class="menu-category-icon" aria-label="Rocket"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Digital Marketing</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Website
+                    Development</a></li>
+                <li><a href="#" class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">SEO
+                    Services</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Digital
+                    Marketing</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Branding</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <a href="#process"
+          class="mobile-menu-link text-base font-semibold text-brand-navy border-b border-slate-100 pb-2 py-2 min-touch-target">Process</a>
+        <a href="#why-us"
+          class="mobile-menu-link text-base font-semibold text-brand-navy border-b border-slate-100 pb-2 py-2 min-touch-target">Why
+          Us</a>
+        <a href="blog.html"
+          class="mobile-menu-link text-base font-semibold text-brand-navy border-b border-slate-100 pb-2 py-2 min-touch-target">Blog</a>
+        <!-- Mobile Accordion: Specialties -->
+        <div class="border-b border-slate-100 pb-2">
+          <button id="mobileSpecialtiesAccordionBtn"
+            class="mobile-menu-link w-full text-base font-semibold text-brand-navy flex items-center justify-between py-2 focus:outline-none min-touch-target"
+            aria-expanded="false">
+            <span>Specialties</span>
+            <svg class="accordion-chevron w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+
+          <div id="mobileSpecialtiesAccordionContent"
+            class="accordion-content pl-2 mt-2 space-y-4 border-l border-slate-100">
+
+            <!-- Column 1: Behavioral & Mental Health Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="medical-icon:mental-health" class="menu-category-icon" aria-label="Mental Health"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Behavioral & Mental</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Behavioral
+                    Health</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Psychiatry</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Psychology</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Addiction
+                    Treatment</a></li>
+              </ul>
+            </div>
+
+            <!-- Column 2: Primary & Specialty Care Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="medical-icon:billing" class="menu-category-icon" aria-label="Stethoscope"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Primary & Specialty</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Family
+                    Practice</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Internal
+                    Medicine</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Primary
+                    Care</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Pediatrics</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Women's
+                    Health / OB-GYN</a></li>
+              </ul>
+            </div>
+
+            <!-- Column 3: Medical Specialties Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="medical-icon:hospital" class="menu-category-icon" aria-label="Hospital"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Medical Specialties</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Cardiology</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Neurology</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Gastroenterology</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Oncology</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Orthopedics</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Dermatology</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Nephrology</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Pulmonology</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Endocrinology</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Rheumatology</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Column 4: Surgical & Diagnostic Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="medical-icon:surgery" class="menu-category-icon" aria-label="Surgical"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Surgical & Diagnostic</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">General
+                    Surgery</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Vascular
+                    Surgery</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Plastic
+                    Surgery</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Anesthesiology</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Radiology
+                    Billing</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Pathology</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Column 5: Therapy & Support Services Mobile -->
+            <div class="bg-slate-50/70 rounded-2xl p-4 border border-slate-100/60">
+              <div class="flex items-center space-x-2.5 pb-2 border-b border-slate-100">
+                <iconify-icon icon="medical-icon:physical-therapy" class="menu-category-icon" aria-label="Therapy"></iconify-icon>
+                <span class="text-xs font-bold text-brand-navy tracking-wider uppercase">Therapy & Support</span>
+              </div>
+              <ul class="mt-2 space-y-1">
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Physical
+                    Therapy</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Occupational
+                    Therapy</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Chiropractic</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Acupuncture</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Hospice
+                    Care</a></li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Palliative
+                    Care</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">DME</a>
+                </li>
+                <li><a href="#"
+                    class="text-xs text-brand-body hover:text-brand-green py-2 block min-touch-target">Pharmacy
+                    Services</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+        <a href="#contact"
+          class="mobile-menu-link text-base font-semibold text-brand-navy border-b border-slate-100 pb-2 py-2 min-touch-target">Contact</a>
+      </nav>
+
+      <!-- Mobile CTA Pinned at Bottom -->
+      <!-- TODO: Swap final phone number inside CTA function or calendar link -->
+      <div class="mt-auto pt-8">
+        <a href="tel:+18005550199"
+          class="btn-orange-glow w-full flex items-center justify-center space-x-2 py-4 rounded-full text-white font-bold shadow-md min-touch-target"
+          aria-label="Book Free Analysis - Call 1-800-555-0199">
+          <span>Book Free Analysis</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- HERO SECTION (Fits screen exactly on desktop, with top padding mapping navbar height) -->
+    <main
+      class="flex-grow flex items-center justify-center relative z-20 px-4 pt-32 pb-10 md:pt-36 md:pb-14 lg:pt-28 lg:pb-8 w-full min-h-screen">
+      <div
+        class="w-full max-w-7xl text-center space-y-6 lg:space-y-5 relative flex flex-col justify-center items-center">
+
+        <!-- 1. Trust badge pill -->
+        <div id="heroBadge"
+          class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur-md border border-slate-100 shadow-sm flex-shrink-0">
+          <!-- Badge Check Icon -->
+          <span class="flex items-center justify-center w-5 h-5 rounded-full bg-brand-green/10 text-brand-green">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+          <span class="text-xs md:text-sm font-semibold text-brand-navy">
+            Trusted by <span class="text-brand-green font-bold">500+</span> Healthcare Practices
+          </span>
+        </div>
+
+        <!-- 2. Headline -->
+        <h1 id="heroHeadline"
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-extrabold tracking-tight text-brand-navy leading-[1.08] max-w-5xl mx-auto flex-shrink-0">
+          <span class="block">Focus on Healing.</span>
+          <span class="block mt-1 md:mt-2">We Protect Your <span
+              class="text-brand-green relative inline-block">Revenue.</span></span>
+        </h1>
+
+        <!-- 3. Subheadline -->
+        <p id="heroSubheadline"
+          class="text-sm sm:text-base md:text-lg lg:text-[17px] text-brand-body max-w-3xl mx-auto leading-relaxed px-4 flex-shrink-0">
+          Comprehensive medical billing and RCM solutions that maximize reimbursements and minimize your administrative
+          burden — so you can focus on what matters most.
+        </p>
+
+        <!-- 4. CTA Buttons Side-by-Side (Stack vertically on mobile) -->
+        <!-- TODO: Swap final phone number or scheduling URL inside primary button -->
+        <div id="heroCtaBlock"
+          class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mx-auto sm:max-w-none pt-2 flex-shrink-0">
+          <!-- Primary Orange CTA -->
+          <a href="tel:+18005550199"
+            class="btn-orange-glow w-full sm:w-auto inline-flex items-center justify-center space-x-2.5 px-7 py-3.5 rounded-full text-white font-bold text-sm md:text-base min-touch-target"
+            aria-label="Book Your Free Analysis - Call 1-800-555-0199">
+            <!-- Calendar Icon -->
+            <svg class="w-5 h-5 text-white/95" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <span>Book Your Free Analysis</span>
+            <!-- Arrow Icon -->
+            <svg class="w-4 h-4 text-white/95" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+
+          <!-- Secondary Outline Green CTA -->
+          <a href="#services"
+            class="btn-secondary w-full sm:w-auto inline-flex items-center justify-center space-x-2.5 px-7 py-3.5 rounded-full font-bold text-sm md:text-base min-touch-target">
+            <!-- Explore target crosshair icon -->
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 11c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm0 0c0 1.105 1.343 2 3 2s3-.895 3-2-1.343-2-3-2-3 .895-3 2z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3M3 12h3m12 0h3" />
+            </svg>
+            <span>Explore Services</span>
+          </a>
+        </div>
+
+        <!-- 5. Row of 4 Trust Indicator Cards (Grid) -->
+        <!-- 5. Row of 4 Trust Indicator Cards (Grid) -->
+        <div id="heroTrustCards"
+          class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 pt-5 lg:pt-3 max-w-5xl mx-auto w-full flex-shrink-0">
+
+          <!-- Card 1: No Upfront Payments -->
+          <div
+            class="glass-card p-3 md:p-5 rounded-2xl flex items-center space-x-2 md:space-x-4 border border-slate-100">
+            <div
+              class="flex-shrink-0 w-9 h-9 md:w-12 md:h-12 rounded-xl bg-brand-green-light flex items-center justify-center text-brand-green">
+              <!-- Shield with Dollar Sign -->
+              <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div class="text-left leading-none">
+              <p class="text-[11px] sm:text-xs md:text-sm font-extrabold text-brand-navy">No Upfront</p>
+              <p class="text-[11px] sm:text-xs md:text-sm font-extrabold text-brand-navy mt-0.5">Payments</p>
+            </div>
+          </div>
+
+          <!-- Card 2: HIPAA Compliant -->
+          <div
+            class="glass-card p-3 md:p-5 rounded-2xl flex items-center space-x-2 md:space-x-4 border border-slate-100">
+            <div
+              class="flex-shrink-0 w-9 h-9 md:w-12 md:h-12 rounded-xl bg-brand-green-light flex items-center justify-center text-brand-green">
+              <!-- HIPAA Shield Lock -->
+              <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <div class="text-left leading-none">
+              <p class="text-[11px] sm:text-xs md:text-sm font-extrabold text-brand-navy">HIPAA</p>
+              <p class="text-[11px] sm:text-xs md:text-sm font-extrabold text-brand-navy mt-0.5">Compliant</p>
+            </div>
+          </div>
+
+          <!-- Card 3: No Long-Term Contracts -->
+          <div
+            class="glass-card p-3 md:p-5 rounded-2xl flex items-center space-x-2 md:space-x-4 border border-slate-100">
+            <div
+              class="flex-shrink-0 w-9 h-9 md:w-12 md:h-12 rounded-xl bg-brand-green-light flex items-center justify-center text-brand-green">
+              <!-- Document outline check -->
+              <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div class="text-left leading-none">
+              <p class="text-[11px] sm:text-xs md:text-sm font-extrabold text-brand-navy">No Long-Term</p>
+              <p class="text-[11px] sm:text-xs md:text-sm font-extrabold text-brand-navy mt-0.5">Contracts</p>
+            </div>
+          </div>
+
+          <!-- Card 4: 4.5★ Reviews -->
+          <div
+            class="glass-card p-3 md:p-5 rounded-2xl flex items-center space-x-2 md:space-x-4 border border-slate-100">
+            <div
+              class="flex-shrink-0 w-9 h-9 md:w-12 md:h-12 rounded-xl bg-brand-green-light flex items-center justify-center text-brand-green">
+              <!-- Star outline icon -->
+              <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.25.588 1.81l-3.974 2.89a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.88a1 1 0 00-1.176 0l-3.976 2.88c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118l-3.976-2.89c-.773-.56-.374-1.81.588-1.81h4.907a1 1 0 00.95-.69l1.518-4.674z" />
+              </svg>
+            </div>
+            <div class="text-left leading-none">
+              <p class="text-[11px] sm:text-xs md:text-sm font-extrabold text-brand-navy">4.5★</p>
+              <p class="text-[11px] sm:text-xs md:text-sm font-extrabold text-brand-navy mt-0.5">Reviews</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- WHAT WE OFFER SECTION START -->
+    <section id="what-we-offer" class="w-full bg-white pt-20 md:pt-24 lg:pt-28 pb-10 md:pb-12 lg:pb-14 relative px-4 flex flex-col items-center border-t border-slate-200/40">
+      <div class="w-full max-w-7xl mx-auto flex flex-col items-center text-center">
+        <!-- Eyebrow -->
+        <span class="text-xs md:text-sm font-bold text-brand-green tracking-widest uppercase mb-3" style="opacity: 0; transform: translateY(20px);">WHAT WE OFFER</span>
+        
+        <!-- Heading -->
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-navy leading-[1.1] mb-6 max-w-3xl mx-auto" style="opacity: 0; transform: translateY(20px);">
+          Everything Your Practice Needs, <span class="text-brand-green">In One Place</span>
+        </h2>
+        
+        <!-- Subtext -->
+        <p class="text-sm sm:text-base text-brand-body leading-relaxed max-w-2xl mx-auto mb-12 md:mb-16" style="opacity: 0; transform: translateY(20px);">
+          Full-service revenue cycle management and practice growth support — all under one roof.
+        </p>
+
+        <!-- Cards Grid (Top 3) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 w-full max-w-6xl mx-auto">
+          
+          <!-- Card 1: Medical Billing -->
+          <div class="offer-card rounded-[20px] p-8 text-left flex flex-col group/card relative z-10 h-full" style="opacity: 0; transform: scale(0.95) translateY(25px);">
+            <iconify-icon icon="medical-icon:billing" class="offer-card-icon" aria-label="Stethoscope"></iconify-icon>
+            <h3 class="text-xl font-bold text-brand-navy mb-3">Medical Billing & RCM</h3>
+            <p class="text-sm text-brand-body leading-relaxed mb-6 flex-grow">
+              End-to-end billing, coding, and claims management to maximize your reimbursements.
+            </p>
+            <a href="services.html#medical-billing" class="inline-flex items-center text-sm font-bold text-brand-green hover:text-brand-navy transition-colors mt-auto min-touch-target">
+              Explore <span class="ml-1 transition-transform group-hover/card:translate-x-1">→</span>
+            </a>
+          </div>
+
+          <!-- Card 2: Credentialing -->
+          <div class="offer-card rounded-[20px] p-8 text-left flex flex-col group/card relative z-10 h-full" style="opacity: 0; transform: scale(0.95) translateY(25px);">
+            <iconify-icon icon="fa6-solid:clipboard-check" class="offer-card-icon" aria-label="Clipboard"></iconify-icon>
+            <h3 class="text-xl font-bold text-brand-navy mb-3">Credentialing</h3>
+            <p class="text-sm text-brand-body leading-relaxed mb-6 flex-grow">
+              Fast, accurate provider credentialing and enrollment so you can start billing sooner.
+            </p>
+            <a href="services.html#credentialing" class="inline-flex items-center text-sm font-bold text-brand-green hover:text-brand-navy transition-colors mt-auto min-touch-target">
+              Explore <span class="ml-1 transition-transform group-hover/card:translate-x-1">→</span>
+            </a>
+          </div>
+
+          <!-- Card 3: Practice Management -->
+          <div class="offer-card rounded-[20px] p-8 text-left flex flex-col group/card relative z-10 h-full" style="opacity: 0; transform: scale(0.95) translateY(25px);">
+            <iconify-icon icon="medical-icon:hospital" class="offer-card-icon" aria-label="Hospital"></iconify-icon>
+            <h3 class="text-xl font-bold text-brand-navy mb-3">Practice Management</h3>
+            <p class="text-sm text-brand-body leading-relaxed mb-6 flex-grow">
+              Dedicated support staff and virtual assistance to run your practice smoothly.
+            </p>
+            <a href="services.html#practice-mgmt" class="inline-flex items-center text-sm font-bold text-brand-green hover:text-brand-navy transition-colors mt-auto min-touch-target">
+              Explore <span class="ml-1 transition-transform group-hover/card:translate-x-1">→</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Cards Grid (Bottom 2) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 w-full max-w-4xl mx-auto mt-6 lg:mt-8">
+          
+          <!-- Card 4: Bookkeeping -->
+          <div class="offer-card rounded-[20px] p-8 text-left flex flex-col group/card relative z-10 h-full" style="opacity: 0; transform: scale(0.95) translateY(25px);">
+            <iconify-icon icon="fa6-solid:wallet" class="offer-card-icon" aria-label="Money Bag"></iconify-icon>
+            <h3 class="text-xl font-bold text-brand-navy mb-3">Bookkeeping & Accounting</h3>
+            <p class="text-sm text-brand-body leading-relaxed mb-6 flex-grow">
+              Accurate financial tracking and reporting to keep your practice's books clean.
+            </p>
+            <a href="services.html#bookkeeping" class="inline-flex items-center text-sm font-bold text-brand-green hover:text-brand-navy transition-colors mt-auto min-touch-target">
+              Explore <span class="ml-1 transition-transform group-hover/card:translate-x-1">→</span>
+            </a>
+          </div>
+
+          <!-- Card 5: Digital Growth -->
+          <div class="offer-card rounded-[20px] p-8 text-left flex flex-col group/card relative z-10 h-full" style="opacity: 0; transform: scale(0.95) translateY(25px);">
+            <iconify-icon icon="fa6-solid:chart-line" class="offer-card-icon" aria-label="Rocket"></iconify-icon>
+            <h3 class="text-xl font-bold text-brand-navy mb-3">Digital Growth</h3>
+            <p class="text-sm text-brand-body leading-relaxed mb-6 flex-grow">
+              Websites, SEO, and marketing built to bring more patients through your door.
+            </p>
+            <a href="services.html#digital-growth" class="inline-flex items-center text-sm font-bold text-brand-green hover:text-brand-navy transition-colors mt-auto min-touch-target">
+              Explore <span class="ml-1 transition-transform group-hover/card:translate-x-1">→</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Explore All Services Button -->
+        <div class="offer-cta flex justify-center mt-8 md:mt-10 w-full" style="opacity: 0; transform: translateY(15px);">
+          <a href="services.html" class="btn-orange-glow inline-flex items-center justify-center space-x-2.5 px-8 py-4 rounded-full text-white font-bold text-sm md:text-base min-touch-target">
+            <span>Explore All Services</span>
+            <svg class="w-4 h-4 text-white/95" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WHY US SECTION START -->
+    <section id="why-us"
+      class="w-full bg-[#F9FAFB] py-16 md:py-20 lg:py-24 relative px-4 flex flex-col items-center border-t border-slate-200/40">
+      <!-- Main 2-Column Grid (Desktop) / Column Flex (Mobile) -->
+      <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
+
+        <!-- Left Column: Sticky Intro Block -->
+        <div id="whyUsIntro"
+          class="w-full lg:w-[40%] lg:sticky lg:top-28 flex flex-col items-start text-left flex-shrink-0">
+
+          <!-- Arrow Decorative Button (Brand Green Background, White Arrow) -->
+          <div id="whyUsArrowBtn"
+            class="w-12 h-12 rounded-full bg-brand-green text-white flex items-center justify-center shadow-md mb-6 transition-all duration-300 hover:scale-105">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </div>
+
+          <span id="whyUsEyebrow"
+            class="text-xs md:text-sm font-bold text-brand-green tracking-widest uppercase mb-3">WHY
+            REVCARE EDGE</span>
+
+          <h2 id="whyUsHeadline"
+            class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-navy leading-[1.1] mb-6 max-w-md">
+            This Is Not<br>
+            <span
+              class="inline-block bg-brand-green text-white font-extrabold px-4 py-1.5 rounded-2xl shadow-sm mt-2 relative overflow-hidden group/highlight select-none">
+              <span
+                class="highlight-sweep absolute inset-0 bg-white/20 -translate-x-full transition-transform duration-1000 ease-out"></span>
+              Outsourcing.
+            </span>
+          </h2>
+
+          <p id="whyUsSubheadline" class="text-sm sm:text-base text-brand-body leading-relaxed max-w-md mb-12">
+            We become an extension of your practice — not a vendor you have to manage.
+          </p>
+
+          <!-- Footer Contact Info (Subtle footer details) -->
+          <div id="whyUsFooter" class="flex flex-col space-y-3 border-t border-slate-200/60 pt-6 w-full max-w-md">
+            <div class="flex items-center space-x-3 text-xs sm:text-sm text-brand-body">
+              <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <!-- TODO: Replace with final phone number inside custom CTA -->
+              <a href="tel:+18005550199" class="hover:text-brand-green font-semibold transition-colors">+1 (800)
+                555-0199</a>
+            </div>
+            <div class="flex items-center space-x-3 text-xs sm:text-sm text-brand-body">
+              <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+              <a href="https://www.revcareedge.com" target="_blank"
+                class="hover:text-brand-green font-semibold transition-colors">www.revcareedge.com</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Alternating Shape Flow Items -->
+        <div class="w-full lg:w-[60%] flex flex-col space-y-0 relative z-10">
+
+          <!-- Center Line Indicator (Hidden on mobile) -->
+          <div class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-[2px] bg-slate-200/50 -translate-x-1/2 z-0">
+          </div>
+
+          <!-- Item 1 (Green, Desktop: Shape Right, Text Left / Mobile: Shape Right, Text Left) -->
+          <div
+            class="flow-row flex items-center justify-between py-6 md:py-8 border-b border-slate-100/60 w-full group relative z-10">
+            <!-- Text column -->
+            <div class="flow-text w-[52%] pr-4 text-right flex flex-col items-end md:w-[55%]">
+              <p class="text-xs sm:text-sm text-brand-body leading-relaxed max-w-xs md:max-w-md">
+                Our team specializes exclusively in medical billing, not generic outsourced admin work.
+              </p>
+            </div>
+            <!-- Shape column -->
+            <div class="flow-shape-wrapper w-[45%] flex justify-start md:w-[40%]">
+              <div
+                class="flow-shape bg-gradient-to-br from-[#3E7B4F] to-[#2B5637] text-white p-5 md:p-6 w-full flex items-center justify-center text-center font-bold text-xs sm:text-sm md:text-base rounded-l-[100px] rounded-r-none select-none">
+                Healthcare-Focused<br>Expertise
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 (Orange, Desktop: Shape Left, Text Right / Mobile: Shape Right, Text Left) -->
+          <div
+            class="flow-row flex items-center justify-between py-6 md:py-8 border-b border-slate-100/60 w-full lg:flex-row-reverse group relative z-10">
+            <!-- Text column -->
+            <div
+              class="flow-text w-[52%] pr-4 text-right flex flex-col items-end lg:text-left lg:items-start lg:pl-4 lg:pr-0 md:w-[55%]">
+              <p class="text-xs sm:text-sm text-brand-body leading-relaxed max-w-xs md:max-w-md">
+                Your goals are our priority — we listen and understand your practice's needs.
+              </p>
+            </div>
+            <!-- Shape column -->
+            <div class="flow-shape-wrapper w-[45%] flex justify-start lg:justify-end md:w-[40%]">
+              <div
+                class="flow-shape bg-gradient-to-br from-[#F5872E] to-[#D8530C] text-white p-5 md:p-6 w-full flex items-center justify-center text-center font-bold text-xs sm:text-sm md:text-base rounded-l-[100px] rounded-r-none lg:rounded-r-[100px] lg:rounded-l-none select-none">
+                Customer-First<br>Approach
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 (Green, Desktop: Shape Right, Text Left / Mobile: Shape Right, Text Left) -->
+          <div
+            class="flow-row flex items-center justify-between py-6 md:py-8 border-b border-slate-100/60 w-full group relative z-10">
+            <!-- Text column -->
+            <div class="flow-text w-[52%] pr-4 text-right flex flex-col items-end md:w-[55%]">
+              <p class="text-xs sm:text-sm text-brand-body leading-relaxed max-w-xs md:max-w-md">
+                Full visibility into claims, denials, and revenue — no black-box processes.
+              </p>
+            </div>
+            <!-- Shape column -->
+            <div class="flow-shape-wrapper w-[45%] flex justify-start md:w-[40%]">
+              <div
+                class="flow-shape bg-gradient-to-br from-[#3E7B4F] to-[#2B5637] text-white p-5 md:p-6 w-full flex items-center justify-center text-center font-bold text-xs sm:text-sm md:text-base rounded-l-[100px] rounded-r-none select-none">
+                Transparent<br>Reporting
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 (Orange, Desktop: Shape Left, Text Right / Mobile: Shape Right, Text Left) -->
+          <div
+            class="flow-row flex items-center justify-between py-6 md:py-8 border-b border-slate-100/60 w-full lg:flex-row-reverse group relative z-10">
+            <!-- Text column -->
+            <div
+              class="flow-text w-[52%] pr-4 text-right flex flex-col items-end lg:text-left lg:items-start lg:pl-4 lg:pr-0 md:w-[55%]">
+              <p class="text-xs sm:text-sm text-brand-body leading-relaxed max-w-xs md:max-w-md">
+                Optimized claim submission and follow-up designed to reduce payment delays.
+              </p>
+            </div>
+            <!-- Shape column -->
+            <div class="flow-shape-wrapper w-[45%] flex justify-start lg:justify-end md:w-[40%]">
+              <div
+                class="flow-shape bg-gradient-to-br from-[#F5872E] to-[#D8530C] text-white p-5 md:p-6 w-full flex items-center justify-center text-center font-bold text-xs sm:text-sm md:text-base rounded-l-[100px] rounded-r-none lg:rounded-r-[100px] lg:rounded-l-none select-none">
+                Faster<br>Reimbursements
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 (Green, Desktop: Shape Right, Text Left / Mobile: Shape Right, Text Left) -->
+          <div
+            class="flow-row flex items-center justify-between py-6 md:py-8 border-b border-slate-100/60 w-full group relative z-10">
+            <!-- Text column -->
+            <div class="flow-text w-[52%] pr-4 text-right flex flex-col items-end md:w-[55%]">
+              <p class="text-xs sm:text-sm text-brand-body leading-relaxed max-w-xs md:max-w-md">
+                Every process and platform meets strict healthcare data security standards.
+              </p>
+            </div>
+            <!-- Shape column -->
+            <div class="flow-shape-wrapper w-[45%] flex justify-start md:w-[40%]">
+              <div
+                class="flow-shape bg-gradient-to-br from-[#3E7B4F] to-[#2B5637] text-white p-5 md:p-6 w-full flex items-center justify-center text-center font-bold text-xs sm:text-sm md:text-base rounded-l-[100px] rounded-r-none select-none">
+                HIPAA-Compliant<br>Systems
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6 (Orange, Desktop: Shape Left, Text Right / Mobile: Shape Right, Text Left, Bottom closure) -->
+          <div
+            class="flow-row flex items-center justify-between py-6 md:py-8 border-b-0 w-full lg:flex-row-reverse group relative z-10">
+            <!-- Text column -->
+            <div
+              class="flow-text w-[52%] pr-4 text-right flex flex-col items-end lg:text-left lg:items-start lg:pl-4 lg:pr-0 md:w-[55%]">
+              <p class="text-xs sm:text-sm text-brand-body leading-relaxed max-w-xs md:max-w-md">
+                Projects and transitions completed within deadlines, with careful planning.
+              </p>
+            </div>
+            <!-- Shape column -->
+            <div class="flow-shape-wrapper w-[45%] flex justify-start lg:justify-end md:w-[40%]">
+              <!-- Uses rounded-br-[100px] on mobile and lg:rounded-bl-[100px] on desktop to form a closed bottom curve -->
+              <div
+                class="flow-shape bg-gradient-to-br from-[#F5872E] to-[#D8530C] text-white p-5 md:p-6 w-full flex items-center justify-center text-center font-bold text-xs sm:text-sm md:text-base rounded-l-[100px] rounded-br-[100px] rounded-tr-none lg:rounded-r-[100px] lg:rounded-bl-[100px] lg:rounded-tl-none lg:rounded-l-none select-none">
+                On-Time, Reliable<br>Delivery
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- WHY US SECTION END -->
+
+    <!-- PROCESS SECTION START -->
+    <section id="processSection"
+      class="w-full py-20 md:py-24 lg:py-28 relative px-4 flex flex-col items-center overflow-hidden bg-[#F1F4F8]">
+
+      <!-- Section Intro Header -->
+      <div class="w-full max-w-3xl text-center space-y-5 mb-16 md:mb-24 relative z-10">
+        <span class="text-xs md:text-sm font-bold text-[#3E7B4F] tracking-[0.2em] uppercase block">HOW IT WORKS</span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#101828] leading-tight font-sans">
+          Get Started in <span class="text-[#3E7B4F]">6 Simple Steps</span>
+        </h2>
+        <p class="text-sm sm:text-base text-[#5A6472] leading-relaxed max-w-[650px] mx-auto font-sans font-normal">
+          At RevCare Edge, we follow a structured approach to understand your needs, implement the right healthcare
+          solutions, and provide continuous support to help your practice operate efficiently.
+        </p>
+      </div>
+
+      <!-- Timeline Wrapper -->
+      <div class="w-full max-w-6xl mx-auto relative px-4">
+
+        <!-- ═══════════════ DESKTOP TIMELINE (lg and up) ═══════════════ -->
+        <div class="hidden lg:block w-full relative select-none">
+
+          <!-- Horizontal Connector Line -->
+          <div
+            class="absolute left-[8.33%] right-[8.33%] top-[40px] h-[2px] bg-[rgba(16,24,40,0.15)] pointer-events-none z-0"
+            id="processConnectorLineContainer">
+            <div id="processConnectorLine" class="w-full h-full bg-[#3E7B4F]/50 origin-left scale-x-0"></div>
+          </div>
+
+          <!-- 6-column grid for circles + text -->
+          <div class="grid grid-cols-6 gap-6 relative z-10 w-full" id="processColumnsGrid">
+
+            <!-- Step 1 -->
+            <div class="flex flex-col items-center text-center process-step-desktop" id="processStepDesktop-1">
+              <div
+                class="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white bg-gradient-to-br from-[#3E7B4F] to-[#2B5637] shadow-lg shadow-[#3E7B4F]/20 transition-transform duration-300 hover:scale-105 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                1
+              </div>
+              <div class="mt-6 space-y-2 max-w-[170px] process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans">Free Practice Analysis</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans">We begin with a detailed
+                  review of your current workflow, challenges, and goals to identify the best opportunities for
+                  improvement.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex flex-col items-center text-center process-step-desktop" id="processStepDesktop-2">
+              <div
+                class="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white bg-gradient-to-br from-[#F5872E] to-[#D8530C] shadow-lg shadow-[#F5872E]/20 transition-transform duration-300 hover:scale-105 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                2
+              </div>
+              <div class="mt-6 space-y-2 max-w-[170px] process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans">Customized Service Plan</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans">We create a tailored plan
+                  combining the right services — billing, coding, credentialing, and more — for your specific practice.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex flex-col items-center text-center process-step-desktop" id="processStepDesktop-3">
+              <div
+                class="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white bg-gradient-to-br from-[#3E7B4F] to-[#2B5637] shadow-lg shadow-[#3E7B4F]/20 transition-transform duration-300 hover:scale-105 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                3
+              </div>
+              <div class="mt-6 space-y-2 max-w-[170px] process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans">Smooth Onboarding</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans">Our team manages setup and
+                  coordination, ensuring a seamless transition with minimal disruption to your operations.</p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex flex-col items-center text-center process-step-desktop" id="processStepDesktop-4">
+              <div
+                class="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white bg-gradient-to-br from-[#F5872E] to-[#D8530C] shadow-lg shadow-[#F5872E]/20 transition-transform duration-300 hover:scale-105 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                4
+              </div>
+              <div class="mt-6 space-y-2 max-w-[170px] process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans">Dedicated Support</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans">You receive personalized,
+                  ongoing support from professionals who understand your practice's priorities.</p>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="flex flex-col items-center text-center process-step-desktop" id="processStepDesktop-5">
+              <div
+                class="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white bg-gradient-to-br from-[#3E7B4F] to-[#2B5637] shadow-lg shadow-[#3E7B4F]/20 transition-transform duration-300 hover:scale-105 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                5
+              </div>
+              <div class="mt-6 space-y-2 max-w-[170px] process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans">Continuous Monitoring</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans">We continuously track
+                  performance and refine processes to strengthen your revenue cycle over time.</p>
+              </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="flex flex-col items-center text-center process-step-desktop" id="processStepDesktop-6">
+              <div
+                class="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white bg-gradient-to-br from-[#F5872E] to-[#D8530C] shadow-lg shadow-[#F5872E]/20 transition-transform duration-300 hover:scale-105 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                6
+              </div>
+              <div class="mt-6 space-y-2 max-w-[170px] process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans">Replacement Guarantee</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans">If we don't deliver the
+                  results promised, we make it right — our commitment to your practice is backed, not just promised.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- ═══════════════ MOBILE TIMELINE (<lg) ═══════════════ -->
+        <div class="lg:hidden w-full max-w-md mx-auto relative px-4 z-10" id="processTimelineMobile">
+
+          <!-- Vertical Connector Line -->
+          <div
+            class="absolute left-[36px] top-[40px] bottom-[40px] w-[2px] bg-[rgba(16,24,40,0.15)] pointer-events-none z-0">
+            <div id="processVerticalLine" class="w-full h-full bg-[#3E7B4F]/50 origin-top scale-y-0"></div>
+          </div>
+
+          <div class="space-y-12 relative z-10">
+
+            <!-- Step 1 Mobile -->
+            <div class="flex items-start space-x-6 process-step-mobile" id="processStepMobile-1">
+              <div
+                class="w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-xl font-bold text-white bg-gradient-to-br from-[#3E7B4F] to-[#2B5637] shadow-lg shadow-[#3E7B4F]/20 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                1
+              </div>
+              <div class="pt-2 space-y-1 process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans text-left">Free Practice Analysis</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans text-left">We begin with a
+                  detailed review of your current workflow, challenges, and goals to identify the best opportunities for
+                  improvement.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 Mobile -->
+            <div class="flex items-start space-x-6 process-step-mobile" id="processStepMobile-2">
+              <div
+                class="w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-xl font-bold text-white bg-gradient-to-br from-[#F5872E] to-[#D8530C] shadow-lg shadow-[#F5872E]/20 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                2
+              </div>
+              <div class="pt-2 space-y-1 process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans text-left">Customized Service Plan</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans text-left">We create a
+                  tailored plan combining the right services — billing, coding, credentialing, and more — for your
+                  specific practice.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 Mobile -->
+            <div class="flex items-start space-x-6 process-step-mobile" id="processStepMobile-3">
+              <div
+                class="w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-xl font-bold text-white bg-gradient-to-br from-[#3E7B4F] to-[#2B5637] shadow-lg shadow-[#3E7B4F]/20 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                3
+              </div>
+              <div class="pt-2 space-y-1 process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans text-left">Smooth Onboarding</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans text-left">Our team manages
+                  setup and coordination, ensuring a seamless transition with minimal disruption to your operations.</p>
+              </div>
+            </div>
+
+            <!-- Step 4 Mobile -->
+            <div class="flex items-start space-x-6 process-step-mobile" id="processStepMobile-4">
+              <div
+                class="w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-xl font-bold text-white bg-gradient-to-br from-[#F5872E] to-[#D8530C] shadow-lg shadow-[#F5872E]/20 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                4
+              </div>
+              <div class="pt-2 space-y-1 process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans text-left">Dedicated Support</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans text-left">You receive
+                  personalized, ongoing support from professionals who understand your practice's priorities.</p>
+              </div>
+            </div>
+
+            <!-- Step 5 Mobile -->
+            <div class="flex items-start space-x-6 process-step-mobile" id="processStepMobile-5">
+              <div
+                class="w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-xl font-bold text-white bg-gradient-to-br from-[#3E7B4F] to-[#2B5637] shadow-lg shadow-[#3E7B4F]/20 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                5
+              </div>
+              <div class="pt-2 space-y-1 process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans text-left">Continuous Monitoring</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans text-left">We continuously
+                  track performance and refine processes to strengthen your revenue cycle over time.</p>
+              </div>
+            </div>
+
+            <!-- Step 6 Mobile -->
+            <div class="flex items-start space-x-6 process-step-mobile" id="processStepMobile-6">
+              <div
+                class="w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-xl font-bold text-white bg-gradient-to-br from-[#F5872E] to-[#D8530C] shadow-lg shadow-[#F5872E]/20 relative z-10 select-none process-circle"
+                style="opacity: 0; transform: scale(0);">
+                6
+              </div>
+              <div class="pt-2 space-y-1 process-text" style="opacity: 0; transform: translateY(15px);">
+                <h3 class="text-base font-bold text-[#101828] font-sans text-left">Replacement Guarantee</h3>
+                <p class="text-[13px] text-[#5A6472] font-normal leading-relaxed font-sans text-left">If we don't
+                  deliver the results promised, we make it right — our commitment to your practice is backed, not just
+                  promised.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+    <!-- PROCESS SECTION END -->
+
+    <!-- SPECIALTIES TEASER SECTION START -->
+    <section id="specialtiesTeaser"
+      class="w-full py-20 md:py-24 lg:py-28 bg-[#F9FAFB] relative px-4 flex flex-col items-center">
+
+      <!-- Section Intro Header -->
+      <div class="w-full max-w-3xl text-center space-y-4 mb-16 relative z-10">
+        <span class="text-xs md:text-sm font-bold text-brand-green tracking-[0.2em] uppercase block">SPECIALTIES WE
+          SERVE</span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-brand-navy leading-tight font-sans">
+          Billing Expertise Across <span class="text-brand-green">50+ Specialties</span>
+        </h2>
+        <p class="text-sm sm:text-base text-slate-500 leading-relaxed max-w-2xl mx-auto font-sans font-normal">
+          Our specialty-focused billing teams understand the unique coding, compliance, and reimbursement needs of your
+          field — helping you get paid faster and more accurately.
+        </p>
+      </div>
+
+      <!-- Teaser Grid -->
+      <div
+        class="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 border-l border-t border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+
+        <!-- Card 1: Behavioral Health -->
+        <a href="specialties.html#contact" class="specialty-card group/card bg-white border-r border-b border-slate-200"
+          style="opacity: 0; transform: scale(0.9) translateY(20px);">
+          <iconify-icon icon="medical-icon:mental-health" style="font-size: 44px; color: #3E7B4F;"
+            class="transition-transform duration-300 group-hover/card:scale-110"></iconify-icon>
+            <span class="specialty-label">Behavioral Health</span>
+        </a>
+
+        <!-- Card 2: Cardiology -->
+        <a href="specialties.html#contact" class="specialty-card group/card bg-white border-r border-b border-slate-200"
+          style="opacity: 0; transform: scale(0.9) translateY(20px);">
+          <iconify-icon icon="medical-icon:cardiology" style="font-size: 44px; color: #3E7B4F;"
+            class="transition-transform duration-300 group-hover/card:scale-110"></iconify-icon>
+            <span class="specialty-label">Cardiology</span>
+        </a>
+
+        <!-- Card 3: Family Practice -->
+        <a href="specialties.html#contact" class="specialty-card group/card bg-white border-r border-b border-slate-200"
+          style="opacity: 0; transform: scale(0.9) translateY(20px);">
+          <iconify-icon icon="medical-icon:family-practice" style="font-size: 44px; color: #3E7B4F;"
+            class="transition-transform duration-300 group-hover/card:scale-110"></iconify-icon>
+            <span class="specialty-label">Family Practice</span>
+        </a>
+
+        <!-- Card 4: Gastroenterology -->
+        <a href="specialties.html#contact" class="specialty-card group/card bg-white border-r border-b border-slate-200"
+          style="opacity: 0; transform: scale(0.9) translateY(20px);">
+          <iconify-icon icon="material-symbols:gastroenterology" style="font-size: 44px; color: #3E7B4F;"
+            class="transition-transform duration-300 group-hover/card:scale-110"></iconify-icon>
+            <span class="specialty-label">Gastroenterology</span>
+        </a>
+
+        <!-- Card 5: Orthopedics -->
+        <a href="specialties.html#contact" class="specialty-card group/card bg-white border-r border-b border-slate-200"
+          style="opacity: 0; transform: scale(0.9) translateY(20px);">
+          <iconify-icon icon="material-symbols:orthopedics" style="font-size: 44px; color: #3E7B4F;"
+            class="transition-transform duration-300 group-hover/card:scale-110"></iconify-icon>
+            <span class="specialty-label">Orthopedics</span>
+        </a>
+
+        <!-- Card 6: General Surgery -->
+        <a href="specialties.html#contact" class="specialty-card group/card bg-white border-r border-b border-slate-200"
+          style="opacity: 0; transform: scale(0.9) translateY(20px);">
+          <iconify-icon icon="medical-icon:surgery" style="font-size: 44px; color: #3E7B4F;"
+            class="transition-transform duration-300 group-hover/card:scale-110"></iconify-icon>
+            <span class="specialty-label">General Surgery</span>
+        </a>
+
+        <!-- Card 7: Physical Therapy -->
+        <a href="specialties.html#contact" class="specialty-card group/card bg-white border-r border-b border-slate-200"
+          style="opacity: 0; transform: scale(0.9) translateY(20px);">
+          <iconify-icon icon="medical-icon:physical-therapy" style="font-size: 44px; color: #3E7B4F;"
+            class="transition-transform duration-300 group-hover/card:scale-110"></iconify-icon>
+            <span class="specialty-label">Physical Therapy</span>
+        </a>
+
+        <!-- Card 8: Radiology Billing -->
+        <a href="specialties.html#contact" class="specialty-card group/card bg-white border-r border-b border-slate-200"
+          style="opacity: 0; transform: scale(0.9) translateY(20px);">
+          <iconify-icon icon="medical-icon:radiology" style="font-size: 44px; color: #3E7B4F;"
+            class="transition-transform duration-300 group-hover/card:scale-110"></iconify-icon>
+            <span class="specialty-label">Radiology Billing</span>
+        </a>
+
+      </div>
+
+      <!-- CTA Button link to specialties page -->
+      <div class="w-full flex justify-center mt-12 md:mt-16">
+        <a href="specialties.html"
+          class="inline-flex items-center space-x-2 px-7 py-3.5 rounded-full bg-brand-navy hover:bg-[#1f2d48] text-white text-sm font-bold shadow-md transition-all duration-300 transform hover:-translate-y-0.5">
+          <span>View All Specialties</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+
+    </section>
+    <!-- SPECIALTIES TEASER SECTION END -->
+
+    <!-- BLOG SECTION START -->
+    <section id="blog"
+      class="w-full py-20 md:py-24 lg:py-28 bg-white relative px-4 flex flex-col items-center border-t border-slate-100">
+      <div class="w-full max-w-6xl mx-auto">
+        <div class="blog-section-header">
+          <div>
+            <span class="blog-eyebrow">Industry Trends</span>
+            <h2>Latest <span class="text-brand-green">Billing Insights</span></h2>
+          </div>
+          <a href="blog.html"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-navy hover:bg-[#1f2d48] text-white text-sm font-bold shadow-md transition-all duration-300">
+            <span>View All Articles</span>
+            <iconify-icon icon="fa6-solid:arrow-right"></iconify-icon>
+          </a>
+        </div>
+
+        <div id="homeBlogGrid" class="blog-grid"></div>
+      </div>
+    </section>
+    <!-- BLOG SECTION END -->
+
+    <!-- TESTIMONIALS SECTION START -->
+    <section id="testimonials"
+      class="w-full py-20 md:py-24 lg:py-28 bg-[#FFFFFF] relative flex flex-col items-center overflow-hidden border-b border-slate-100">
+      <div class="w-full max-w-6xl mx-auto px-4 text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-[#101828]">
+          What Our <span class="text-[#3E7B4F]">Healthcare Provider Says</span>
+        </h2>
+        <p class="text-slate-500 text-sm md:text-base mt-2">Hear directly from the clinics and providers who trust
+          RevCare Edge</p>
+      </div>
+
+      <!-- Swiper Carousel Container -->
+      <div class="w-full max-w-6xl mx-auto px-4 overflow-visible pb-16">
+        <div class="swiper testimonials-swiper overflow-visible">
+          <div class="swiper-wrapper">
+
+            <!-- Slide 1: Staci S -->
+            <div class="swiper-slide w-[300px] md:w-[360px]">
+              <div
+                class="bg-white rounded-2xl p-8 pb-12 border border-slate-100/80 card-shadow flex flex-col items-center text-center relative testimonial-card min-h-[380px] md:min-h-[400px]">
+                <img loading="lazy" src="assets/doc-staci.png" alt="Staci S"
+                  class="w-16 h-16 rounded-full mx-auto mb-3 object-cover shadow-sm border-2 border-white ring-2 ring-slate-100">
+                <span class="text-base font-bold text-[#101828]">Staci S</span>
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Pediatrician</span>
+                <p class="text-slate-600 text-sm md:text-[14px] leading-relaxed mt-4 italic font-sans">
+                  "Before working with RevCare Edge medical billing company, we were facing constant issues like denied
+                  claims and it was affecting our cash flow. After a few months of partnering with them, our claim
+                  denials dropped by nearly 35%. Now claims are submitted properly, follow-ups are done on time, and our
+                  payments are much more consistent."
+                </p>
+                <!-- Bottom Quote Badge -->
+                <div
+                  class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-11 h-11 rounded-full bg-[#101828] text-white flex items-center justify-center shadow-md font-serif text-3xl font-bold leading-none select-none">
+                  ”
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: Bruno S -->
+            <div class="swiper-slide w-[300px] md:w-[360px]">
+              <div
+                class="bg-white rounded-2xl p-8 pb-12 border border-slate-100/80 card-shadow flex flex-col items-center text-center relative testimonial-card min-h-[380px] md:min-h-[400px]">
+                <img loading="lazy" src="assets/doc-bruno.png" alt="Dr. Bruno S"
+                  class="w-16 h-16 rounded-full mx-auto mb-3 object-cover shadow-sm border-2 border-white ring-2 ring-slate-100">
+                <span class="text-base font-bold text-[#101828]">Dr. Bruno S</span>
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">General
+                  Surgeon</span>
+                <p class="text-slate-600 text-sm md:text-[14px] leading-relaxed mt-4 italic font-sans">
+                  "Our medical claims were being negatively affected by repeated medical coding issues in our New Jersey
+                  clinic. After working with RevCare Edge billing company, our medical coding became much more accurate,
+                  under-coding was resolved, and charts were coded correctly the first time."
+                </p>
+                <!-- Bottom Quote Badge -->
+                <div
+                  class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-11 h-11 rounded-full bg-[#101828] text-white flex items-center justify-center shadow-md font-serif text-3xl font-bold leading-none select-none">
+                  ”
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: Eliza L -->
+            <div class="swiper-slide w-[300px] md:w-[360px]">
+              <div
+                class="bg-white rounded-2xl p-8 pb-12 border border-slate-100/80 card-shadow flex flex-col items-center text-center relative testimonial-card min-h-[380px] md:min-h-[400px]">
+                <img loading="lazy" src="assets/doc-eliza.png" alt="Dr. Eliza L"
+                  class="w-16 h-16 rounded-full mx-auto mb-3 object-cover shadow-sm border-2 border-white ring-2 ring-slate-100">
+                <span class="text-base font-bold text-[#101828]">Dr. Eliza L</span>
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Family
+                  Medicine</span>
+                <p class="text-slate-600 text-sm md:text-[14px] leading-relaxed mt-4 italic font-sans">
+                  "My family medicine practice was struggling with delayed payments and constant billing backlogs. The
+                  medical billing process has been organized better after working with RevCare Edge. The employees at
+                  our front desk are now able to focus on patients instead of insurance problems, and payments are more
+                  regular."
+                </p>
+                <!-- Bottom Quote Badge -->
+                <div
+                  class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-11 h-11 rounded-full bg-[#101828] text-white flex items-center justify-center shadow-md font-serif text-3xl font-bold leading-none select-none">
+                  ”
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4: Leon E -->
+            <div class="swiper-slide w-[300px] md:w-[360px]">
+              <div
+                class="bg-white rounded-2xl p-8 pb-12 border border-slate-100/80 card-shadow flex flex-col items-center text-center relative testimonial-card min-h-[380px] md:min-h-[400px]">
+                <img loading="lazy" src="assets/doc-leon.png" alt="Dr. Leon E"
+                  class="w-16 h-16 rounded-full mx-auto mb-3 object-cover shadow-sm border-2 border-white ring-2 ring-slate-100">
+                <span class="text-base font-bold text-[#101828]">Dr. Leon E</span>
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Cardiologist</span>
+                <p class="text-slate-600 text-sm md:text-[14px] leading-relaxed mt-4 italic font-sans">
+                  "Our revenue increased by nearly 25% during the first few months. The team they employ is proficient
+                  at handling insurance companies, has a solid grasp of medical billing solutions and resolves medical
+                  claim issues quickly. It helped reduce denials and significantly improve our cash flow."
+                </p>
+                <!-- Bottom Quote Badge -->
+                <div
+                  class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-11 h-11 rounded-full bg-[#101828] text-white flex items-center justify-center shadow-md font-serif text-3xl font-bold leading-none select-none">
+                  ”
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 5: Elina A -->
+            <div class="swiper-slide w-[300px] md:w-[360px]">
+              <div
+                class="bg-white rounded-2xl p-8 pb-12 border border-slate-100/80 card-shadow flex flex-col items-center text-center relative testimonial-card min-h-[380px] md:min-h-[400px]">
+                <img loading="lazy" src="assets/doc-elina.png" alt="Dr. Elina A"
+                  class="w-16 h-16 rounded-full mx-auto mb-3 object-cover shadow-sm border-2 border-white ring-2 ring-slate-100">
+                <span class="text-base font-bold text-[#101828]">Dr. Elina A</span>
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Internal
+                  Medicine</span>
+                <p class="text-slate-600 text-sm md:text-[14px] leading-relaxed mt-4 italic font-sans">
+                  "Provider credentialing was delaying our payments before RevCare Edge. Their provider credentialing
+                  services sped up approvals without disrupting our practice. Now we bill sooner, get paid faster, and
+                  our staff is much less stressed."
+                </p>
+                <!-- Bottom Quote Badge -->
+                <div
+                  class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-11 h-11 rounded-full bg-[#101828] text-white flex items-center justify-center shadow-md font-serif text-3xl font-bold leading-none select-none">
+                  ”
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 6: Lisa H -->
+            <div class="swiper-slide w-[300px] md:w-[360px]">
+              <div
+                class="bg-white rounded-2xl p-8 pb-12 border border-slate-100/80 card-shadow flex flex-col items-center text-center relative testimonial-card min-h-[380px] md:min-h-[400px]">
+                <img loading="lazy" src="assets/doc-lisa.png" alt="Dr. Lisa H"
+                  class="w-16 h-16 rounded-full mx-auto mb-3 object-cover shadow-sm border-2 border-white ring-2 ring-slate-100">
+                <span class="text-base font-bold text-[#101828]">Dr. Lisa H</span>
+                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">OB-GYN</span>
+                <p class="text-slate-600 text-sm md:text-[14px] leading-relaxed mt-4 italic font-sans">
+                  "What we value the most is their communication. Their revenue cycle management services keep us
+                  informed, offer detailed descriptions of issues, and immediately respond to our inquiries."
+                </p>
+                <!-- Bottom Quote Badge -->
+                <div
+                  class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-11 h-11 rounded-full bg-[#101828] text-white flex items-center justify-center shadow-md font-serif text-3xl font-bold leading-none select-none">
+                  ”
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- Swiper Pagination -->
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+    <!-- TESTIMONIALS SECTION END -->
+
+    <!-- CONTACT & FAQ SECTION START -->
+    <section class="w-full py-20 md:py-24 lg:py-28 bg-[#F9FAFB] relative flex flex-col items-center overflow-hidden">
+
+      <!-- Contact Hero Banner — RevCare Edge Branded Palette -->
+      <div class="w-full max-w-6xl mx-auto mb-14 px-4">
+        <div id="contactHeroBanner"
+          class="w-full rounded-3xl p-8 md:p-14 relative overflow-hidden flex flex-col md:flex-row items-center justify-between border border-emerald-900/10 shadow-sm"
+          style="background: linear-gradient(135deg, #F0F7F2 0%, #E2F0E6 50%, #D4E8DC 100%); opacity: 0; transform: translateY(30px);">
+          <!-- Decorative gradient radial glow -->
+          <div
+            class="absolute top-0 right-0 w-80 h-80 bg-[#3E7B4F]/15 rounded-full blur-3xl -translate-y-1/3 translate-x-1/4 pointer-events-none">
+          </div>
+          <div
+            class="absolute bottom-0 left-0 w-64 h-64 bg-[#101828]/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 pointer-events-none">
+          </div>
+
+          <!-- Left Column -->
+          <div class="max-w-lg z-10 text-left space-y-4">
+            <div
+              class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#3E7B4F]/10 border border-[#3E7B4F]/20 text-[#3E7B4F] text-xs font-bold tracking-wider uppercase">
+              <span>GET IN TOUCH</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#101828] leading-tight">Contact Us</h1>
+            <p class="text-[#344054] text-base md:text-lg leading-relaxed">We would love to hear from you. Feel free to
+              reach out — our certified medical billing team is ready to assist your practice.</p>
+          </div>
+
+          <!-- Right Column: 3D PNG Icon from Assets -->
+          <div class="relative mt-8 md:mt-0 z-10 flex items-center justify-center md:-mr-4">
+            <img loading="lazy" id="contactHero3DIcon" src="assets/contact-3d-icon.png"
+              class="w-52 h-52 md:w-72 md:h-72 object-contain drop-shadow-2xl animate-float"
+              style="opacity: 0; transform: scale(0.8);" alt="Contact Us 3D Icon">
+          </div>
+        </div>
+      </div>
+
+      <!-- Free Billing Analysis Form Section -->
+      <div class="w-full max-w-6xl mx-auto mb-20 px-4 scroll-mt-24" id="contact">
+        <div
+          class="w-full bg-white rounded-3xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2 border border-slate-200/60"
+          id="analysisFormCard" style="opacity: 0; transform: translateY(40px);">
+
+          <!-- Left Visual Panel — Clean Smooth Brand Green Gradient (No Wave/Texture Overlays) -->
+          <div
+            class="relative w-full h-auto min-h-[380px] md:min-h-[460px] p-8 md:p-12 overflow-hidden flex flex-col justify-between z-10"
+            style="background: linear-gradient(135deg, #1A3326 0%, #2B5637 100%);">
+            <!-- Subtle Low-Opacity Background Glow Orb (Corner Accent) -->
+            <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-[#81C784]/10 blur-3xl pointer-events-none">
+            </div>
+
+            <!-- Top Trust Badge -->
+            <div class="relative z-10">
+              <span
+                class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-widest">
+                <span class="w-2 h-2 rounded-full bg-[#81C784] animate-pulse"></span>
+                <span>Free Practice Audit</span>
+              </span>
+            </div>
+
+            <!-- Middle Value Message -->
+            <div class="relative z-10 my-6">
+              <h3 class="text-2xl md:text-3xl font-extrabold text-white leading-tight">
+                Unlock Hidden Revenue<br>
+                <span class="text-[#81C784]">In Your Practice</span>
+              </h3>
+              <p class="text-slate-300 text-xs md:text-sm leading-relaxed mt-3 max-w-sm">
+                Our certified billing experts audit your claims, identify under-coded revenue, and build a tailored RCM
+                strategy around your specialty.
+              </p>
+            </div>
+
+            <!-- Bottom Key Trust Points -->
+            <div class="relative z-10 space-y-2.5 pt-4 border-t border-white/15">
+              <div class="flex items-center space-x-3 text-xs md:text-sm font-semibold text-white">
+                <span
+                  class="w-5 h-5 rounded-full bg-[#81C784]/20 text-[#81C784] flex items-center justify-center shrink-0 border border-[#81C784]/30">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span>Zero Upfront Fees & No Long-Term Contracts</span>
+              </div>
+              <div class="flex items-center space-x-3 text-xs md:text-sm font-semibold text-white">
+                <span
+                  class="w-5 h-5 rounded-full bg-[#81C784]/20 text-[#81C784] flex items-center justify-center shrink-0 border border-[#81C784]/30">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span>24-Hour Revenue Audit Turnaround</span>
+              </div>
+              <div class="flex items-center space-x-3 text-xs md:text-sm font-semibold text-white">
+                <span
+                  class="w-5 h-5 rounded-full bg-[#81C784]/20 text-[#81C784] flex items-center justify-center shrink-0 border border-[#81C784]/30">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span>100% HIPAA-Compliant Data Security</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Form Container (STRICTLY 3 FIELDS) -->
+          <div class="p-8 md:p-12 flex flex-col justify-center">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-[#101828] mb-2">Book Your Free Analysis</h2>
+            <p class="text-slate-500 text-sm leading-relaxed mb-7">Identify hidden revenue opportunities with a free
+              billing analysis. Our experts will review your current revenue cycle and create a customized strategy
+              designed around your specialty.</p>
+
+            <form id="billingAnalysisForm" class="space-y-4"
+              onsubmit="event.preventDefault(); alert('Thank you for booking your free analysis! Our team will reach out to you shortly.'); this.reset();">
+              <div>
+                <input type="text" required placeholder="Enter Your Full Name"
+                  class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#3E7B4F] focus:border-transparent text-sm transition-all duration-200">
+              </div>
+              <div>
+                <input type="email" required placeholder="Email Address"
+                  class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#3E7B4F] focus:border-transparent text-sm transition-all duration-200">
+              </div>
+              <div>
+                <input type="tel" required placeholder="Phone Number"
+                  class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#3E7B4F] focus:border-transparent text-sm transition-all duration-200">
+              </div>
+              <button type="submit"
+                class="w-full py-4 rounded-xl bg-gradient-to-r from-[#F5872E] to-[#F2650F] text-white font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-[1.015] active:scale-[0.99] transition-all duration-200 text-base flex items-center justify-center gap-2">
+                Book Your Free Analysis &rarr;
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Get In Touch Section -->
+      <div class="w-full max-w-5xl mx-auto mb-20 px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-[#101828] mb-12">
+          Get In <span class="text-[#3E7B4F]">Touch With Us</span> Today!
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 md:items-start" id="contactInfoCardsContainer">
+
+          <!-- Email Card (Left — sits higher) -->
+          <div
+            class="bg-white rounded-2xl p-8 md:py-10 border-2 border-[#3E7B4F]/15 card-shadow flex flex-col items-center text-center contact-info-card"
+            style="opacity: 0; transform: translateY(30px);">
+            <div
+              class="w-14 h-14 rounded-full bg-[#3E7B4F] text-white flex items-center justify-center mb-4 shadow-lg shadow-[#3E7B4F]/20">
+              <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+                <path
+                  d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-4V6l8 5 8-4v2z" />
+              </svg>
+            </div>
+            <span class="text-sm font-bold text-[#3E7B4F] uppercase tracking-widest mb-2">Email</span>
+            <a href="mailto:info@revcareedge.com"
+              class="text-[15px] font-semibold text-[#101828] hover:text-[#3E7B4F] transition-colors">info@revcareedge.com</a>
+          </div>
+
+          <!-- Headquarters Card (Middle — staggered lower) -->
+          <div
+            class="bg-white rounded-2xl p-8 md:py-10 border-2 border-[#F5872E]/15 card-shadow flex flex-col items-center text-center contact-info-card md:mt-10"
+            style="opacity: 0; transform: translateY(30px);">
+            <div
+              class="w-14 h-14 rounded-full bg-[#F5872E] text-white flex items-center justify-center mb-4 shadow-lg shadow-[#F5872E]/20">
+              <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+              </svg>
+            </div>
+            <span class="text-sm font-bold text-[#F5872E] uppercase tracking-widest mb-2">Headquarters</span>
+            <p class="text-[15px] font-semibold text-[#101828]">Texas, USA</p>
+          </div>
+
+          <!-- Phone Card (Right — sits higher) -->
+          <div
+            class="bg-white rounded-2xl p-8 md:py-10 border-2 border-[#3E7B4F]/15 card-shadow flex flex-col items-center text-center contact-info-card"
+            style="opacity: 0; transform: translateY(30px);">
+            <div
+              class="w-14 h-14 rounded-full bg-[#3E7B4F] text-white flex items-center justify-center mb-4 shadow-lg shadow-[#3E7B4F]/20">
+              <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+                <path
+                  d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+              </svg>
+            </div>
+            <span class="text-sm font-bold text-[#3E7B4F] uppercase tracking-widest mb-2">Phone Number</span>
+            <!-- TODO: Expired/placeholder phone number -->
+            <a href="tel:8482665475"
+              class="text-[15px] font-semibold text-[#101828] hover:text-[#3E7B4F] transition-colors">848-266-5475</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="w-full max-w-5xl mx-auto px-4 pb-20" id="faqContainer">
+        <!-- FAQ Header -->
+        <div class="text-center mb-12" id="faqSectionHeader">
+          <h2 class="text-3xl md:text-4xl font-extrabold text-[#101828] mb-3">Frequently Asked Questions</h2>
+          <p class="text-slate-400 text-base">Have Questions About Us? We Have Answers!</p>
+        </div>
+
+        <!-- 2-Column Accordion Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mx-auto">
+
+          <!-- Column 1 -->
+          <div class="space-y-5 faq-column">
+            <!-- FAQ 1 -->
+            <div class="faq-item overflow-hidden" style="opacity: 0; transform: translateY(20px);">
+              <button
+                class="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none select-none faq-trigger group">
+                <span
+                  class="font-bold text-[#101828] text-[15px] md:text-base font-sans pr-4 transition-colors group-hover:text-[#3E7B4F]">
+                  What makes RevCare Edge different from other billing companies?
+                </span>
+                <span
+                  class="w-9 h-9 rounded-full bg-[#EBF5EE] flex items-center justify-center shrink-0 border border-[#3E7B4F]/15 faq-chevron transition-all duration-300">
+                  <svg class="w-4 h-4 text-[#3E7B4F] transition-colors" fill="none" stroke="currentColor"
+                    stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-content grid transition-all duration-300 ease-in-out" style="grid-template-rows: 0fr;">
+                <div class="overflow-hidden">
+                  <div
+                    class="px-5 md:px-6 pb-5 text-sm md:text-base text-[#5A6472] leading-relaxed font-sans font-normal">
+                    We are more than just an outsourced billing company; we act as a true extension of your team with
+                    dedicated specialty-focused support, customized revenue strategies, and zero long-term contract
+                    lock-ins.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item overflow-hidden" style="opacity: 0; transform: translateY(20px);">
+              <button
+                class="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none select-none faq-trigger group">
+                <span
+                  class="font-bold text-[#101828] text-[15px] md:text-base font-sans pr-4 transition-colors group-hover:text-[#3E7B4F]">
+                  Do you work with my specific medical specialty?
+                </span>
+                <span
+                  class="w-9 h-9 rounded-full bg-[#EBF5EE] flex items-center justify-center shrink-0 border border-[#3E7B4F]/15 faq-chevron transition-all duration-300">
+                  <svg class="w-4 h-4 text-[#3E7B4F] transition-colors" fill="none" stroke="currentColor"
+                    stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-content grid transition-all duration-300 ease-in-out" style="grid-template-rows: 0fr;">
+                <div class="overflow-hidden">
+                  <div
+                    class="px-5 md:px-6 pb-5 text-sm md:text-base text-[#5A6472] leading-relaxed font-sans font-normal">
+                    Yes! We support over 100+ medical specialties ranging from Behavioral Health and Primary Care to
+                    complex Surgical, Diagnostic, and Therapy practices.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="space-y-5 faq-column">
+            <!-- FAQ 3 -->
+            <div class="faq-item overflow-hidden" style="opacity: 0; transform: translateY(20px);">
+              <button
+                class="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none select-none faq-trigger group">
+                <span
+                  class="font-bold text-[#101828] text-[15px] md:text-base font-sans pr-4 transition-colors group-hover:text-[#3E7B4F]">
+                  How do you ensure my patient data is secure?
+                </span>
+                <span
+                  class="w-9 h-9 rounded-full bg-[#EBF5EE] flex items-center justify-center shrink-0 border border-[#3E7B4F]/15 faq-chevron transition-all duration-300">
+                  <svg class="w-4 h-4 text-[#3E7B4F] transition-colors" fill="none" stroke="currentColor"
+                    stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-content grid transition-all duration-300 ease-in-out" style="grid-template-rows: 0fr;">
+                <div class="overflow-hidden">
+                  <div
+                    class="px-5 md:px-6 pb-5 text-sm md:text-base text-[#5A6472] leading-relaxed font-sans font-normal">
+                    100% of our workflows and platforms are HIPAA-compliant, using enterprise-grade encryption and
+                    strict access protocols to protect patient data.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item overflow-hidden" style="opacity: 0; transform: translateY(20px);">
+              <button
+                class="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none select-none faq-trigger group">
+                <span
+                  class="font-bold text-[#101828] text-[15px] md:text-base font-sans pr-4 transition-colors group-hover:text-[#3E7B4F]">
+                  What is your pricing structure?
+                </span>
+                <span
+                  class="w-9 h-9 rounded-full bg-[#EBF5EE] flex items-center justify-center shrink-0 border border-[#3E7B4F]/15 faq-chevron transition-all duration-300">
+                  <svg class="w-4 h-4 text-[#3E7B4F] transition-colors" fill="none" stroke="currentColor"
+                    stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+              </button>
+              <div class="faq-content grid transition-all duration-300 ease-in-out" style="grid-template-rows: 0fr;">
+                <div class="overflow-hidden">
+                  <div
+                    class="px-5 md:px-6 pb-5 text-sm md:text-base text-[#5A6472] leading-relaxed font-sans font-normal">
+                    We offer flexible monthly agreements with no upfront fees or long-term contracts — our pricing
+                    aligns directly with your practice's monthly collections.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+    <!-- CONTACT & FAQ SECTION END -->
+
+    <!-- Footer Section (Brand Navy Background #101828) -->
+    <footer class="w-full bg-[#101828] text-white pt-16 pb-8 border-t border-slate-800/80 relative z-20">
+      <div class="w-full max-w-6xl mx-auto px-4">
+
+        <!-- 4-Column Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12">
+
+          <!-- Column 1: Brand Profile & Social Links -->
+          <div class="space-y-5">
+            <!-- Logo Section -->
+            <a href="#" class="flex items-center group min-touch-target" aria-label="RevCare Edge Home">
+              <img src="assets/logo.png" alt="RevCare Edge Logo" class="h-16 md:h-22 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
+            </a>
+
+            <p class="text-sm text-[#94A3B8] leading-relaxed">
+              RevCare Edge offers comprehensive healthcare revenue management services, helping practices optimize
+              collections and simplify administrative workflows across 100+ specialties.
+            </p>
+
+            <!-- Social Icons Row -->
+            <div class="flex items-center space-x-3 pt-2">
+              <a href="#"
+                class="w-10 h-10 rounded-full bg-slate-900 hover:bg-[#3E7B4F] text-slate-400 hover:text-white flex items-center justify-center transition-all duration-300 shadow-md"
+                aria-label="Facebook">
+                <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
+                </svg>
+              </a>
+              <a href="#"
+                class="w-10 h-10 rounded-full bg-slate-900 hover:bg-[#3E7B4F] text-slate-400 hover:text-white flex items-center justify-center transition-all duration-300 shadow-md"
+                aria-label="LinkedIn">
+                <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                </svg>
+              </a>
+              <a href="#"
+                class="w-10 h-10 rounded-full bg-slate-900 hover:bg-[#F5872E] text-slate-400 hover:text-white flex items-center justify-center transition-all duration-300 shadow-md"
+                aria-label="YouTube">
+                <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
+              <a href="#"
+                class="w-10 h-10 rounded-full bg-slate-900 hover:bg-[#F5872E] text-slate-400 hover:text-white flex items-center justify-center transition-all duration-300 shadow-md"
+                aria-label="Instagram">
+                <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Services Links -->
+          <div class="space-y-5">
+            <h3 class="text-white font-bold text-base font-sans tracking-wide uppercase">Services</h3>
+            <ul class="space-y-3 text-sm text-[#94A3B8] font-sans">
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">RCM
+                  Services</a></li>
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Medical
+                  Billing Services</a></li>
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">AR
+                  Management Services</a></li>
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Medical
+                  Coding Services</a></li>
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Medical
+                  Billing Audit</a></li>
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Provider
+                  Credentialing</a></li>
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Denial
+                  Management</a></li>
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Healthcare
+                  Digital Marketing</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Quick Links -->
+          <div class="space-y-5">
+            <h3 class="text-white font-bold text-base font-sans tracking-wide uppercase">Quick Links</h3>
+            <ul class="space-y-3 text-sm text-[#94A3B8] font-sans">
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">About Us</a>
+              </li>
+              <li><a href="#contact"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Book Free
+                  Analysis</a></li>
+              <li><a href="#contact"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Contact
+                  Us</a></li>
+              <li><a href="specialties.html"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Specialties</a>
+              </li>
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">States</a>
+              </li>
+              <li><a href="blog.html"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Blog</a>
+              </li>
+              <li><a href="#"
+                  class="hover:text-[#3E7B4F] hover:translate-x-1 inline-block transition-all duration-200">Privacy
+                  Policy</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Contact Info & Trust Badges -->
+          <div class="space-y-5">
+            <h3 class="text-white font-bold text-base font-sans tracking-wide uppercase">Contact</h3>
+
+            <div class="space-y-3.5 text-sm text-[#94A3B8] font-sans">
+              <p class="flex items-start space-x-2.5">
+                <span class="text-[#F5872E] mt-0.5">
+                  <!-- Location Pin icon -->
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                  </svg>
+                </span>
+                <span class="text-slate-300">Texas, USA</span>
+              </p>
+              <p class="flex items-center space-x-2.5">
+                <span class="text-[#3E7B4F]">
+                  <!-- Envelope icon -->
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path
+                      d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-4V6l8 5 8-4v2z" />
+                  </svg>
+                </span>
+                <a href="mailto:info@revcareedge.com"
+                  class="text-slate-300 hover:text-[#3E7B4F] transition-colors">info@revcareedge.com</a>
+              </p>
+              <p class="flex items-center space-x-2.5">
+                <span class="text-[#3E7B4F]">
+                  <!-- Phone icon -->
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path
+                      d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                  </svg>
+                </span>
+                <!-- TODO: Expired/placeholder phone number -->
+                <a href="tel:8482665475" class="text-slate-300 hover:text-[#3E7B4F] transition-colors">848-266-5475</a>
+              </p>
+            </div>
+
+            <!-- Claim Acceptance Stat Line -->
+            <div class="pt-2">
+              <p class="text-sm text-[#94A3B8] font-sans">
+                Our claim acceptance rate is <span class="font-bold text-[#3E7B4F]">99%</span>
+              </p>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="flex items-center space-x-2 pt-1.5">
+              <!-- DMCA Protected Badge -->
+              <div
+                class="flex items-center h-6 rounded bg-slate-900 border border-slate-800 pl-2 pr-2.5 border-l-4 border-l-[#3E7B4F]"
+                title="DMCA Protected">
+                <span class="text-[9px] font-bold text-slate-300 tracking-wider">DMCA</span>
+                <span class="text-[9px] font-medium text-slate-500 tracking-wider ml-1">PROTECTED</span>
+              </div>
+              <!-- HIPAA Compliant Badge -->
+              <div class="flex items-center h-6 rounded bg-[#3E7B4F]/10 border border-[#3E7B4F]/30 px-2.5"
+                title="HIPAA Compliant">
+                <span class="text-[9px] font-extrabold text-[#3E7B4F] tracking-wider uppercase">HIPAA Compliant</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Bar & Copyright -->
+        <div class="pt-8 border-t border-slate-800 text-center text-xs text-[#94A3B8]/60 font-sans">
+          <p>© 2026 RevCare Edge. All Rights Reserved.</p>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Custom Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="blog-content.js"></script>
+  <script src="blog-data.js"></script>
+  <script src="blog-home.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

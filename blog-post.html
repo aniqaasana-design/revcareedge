@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post - RevCare Edge</title>
+  <meta name="description" content="Read RevCare Edge medical billing and revenue cycle management articles.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#101828',
+              green: '#3E7B4F',
+              'green-light': '#EBF5EE',
+              'orange-start': '#F5872E',
+              'orange-end': '#F2650F',
+              body: '#5A6472'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
+  <link rel="dns-prefetch" href="https://api.iconify.design">
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+</head>
+
+<body id="top" class="min-h-full bg-white text-brand-navy antialiased overflow-x-hidden">
+  <header id="mainHeader" class="fixed top-0 left-0 w-full px-4 pt-4 md:pt-6 z-50 flex justify-center pointer-events-none">
+    <div class="w-full max-w-7xl pointer-events-auto">
+      <nav id="navbar" class="glass-nav rounded-full px-4 py-2.5 md:px-8 md:py-3.5 flex items-center justify-between">
+        <a href="index.html" class="flex items-center group min-touch-target" aria-label="RevCare Edge Home">
+          <img src="assets/logo.png" alt="RevCare Edge Logo" class="h-14 md:h-18 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
+        </a>
+        <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
+          <a href="index.html" class="nav-link text-sm font-semibold text-brand-navy min-touch-target">Home</a>
+          <a href="services.html" class="nav-link text-sm font-semibold text-brand-navy min-touch-target">Our Services</a>
+          <a href="specialties.html" class="nav-link text-sm font-semibold text-brand-navy min-touch-target">Specialties</a>
+          <a href="blog.html" class="nav-link text-sm font-semibold text-brand-green min-touch-target">Blog</a>
+          <a href="index.html#contact" class="nav-link text-sm font-semibold text-brand-navy min-touch-target">Contact</a>
+        </div>
+        <a href="tel:+18005550199" class="btn-orange-glow hidden md:inline-flex items-center space-x-2 px-5 py-2.5 rounded-full text-white text-xs md:text-sm font-bold min-touch-target">
+          <span>Book Free Analysis</span>
+          <iconify-icon icon="fa6-solid:arrow-right"></iconify-icon>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="blogPostShell" class="blog-post-shell"></main>
+
+  <footer class="blog-footer">
+    <div>
+      <a href="index.html" class="flex items-center group" aria-label="RevCare Edge Home">
+        <img src="assets/logo.png" alt="RevCare Edge Logo" class="h-12 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
+      </a>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="specialties.html">Specialties</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+  </footer>
+
+  <script src="blog-content.js"></script>
+  <script src="blog-data.js"></script>
+  <script src="blog-post.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

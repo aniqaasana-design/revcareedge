@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Admin - RevCare Edge</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#101828',
+              green: '#3E7B4F',
+              'green-light': '#EBF5EE',
+              'orange-start': '#F5872E',
+              'orange-end': '#F2650F',
+              body: '#5A6472'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://api.iconify.design" crossorigin>
+  <link rel="dns-prefetch" href="https://api.iconify.design">
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+</head>
+
+<body class="min-h-full bg-[#F8FAFC] text-brand-navy antialiased">
+  <header class="admin-topbar">
+    <a href="index.html" class="admin-logo" aria-label="RevCare Edge Home">
+      <img src="assets/logo.png" alt="RevCare Edge Logo" class="h-12 w-auto object-contain">
+      <span>
+        <small>Blog Admin</small>
+      </span>
+    </a>
+    <nav>
+      <a href="blog.html" target="_blank" rel="noopener">Open Blog</a>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <main class="admin-shell">
+    <section class="admin-hero">
+      <span class="blog-chip">Content Panel</span>
+      <h1>Manage Blog Posts</h1>
+      <p>Add a cover image, listing description, and the full blog article. Saved posts update the blog pages in this browser immediately.</p>
+    </section>
+
+    <div class="admin-layout">
+      <section class="admin-card">
+        <div class="admin-card-header">
+          <div>
+            <span class="blog-eyebrow">Editor</span>
+            <h2>Add Or Edit Blog</h2>
+          </div>
+          <button id="resetBlogForm" type="button" class="admin-light-btn">New Post</button>
+        </div>
+
+        <form id="blogAdminForm" class="admin-form">
+          <input id="postId" type="hidden">
+          <input id="coverImageValue" type="hidden">
+
+          <label>
+            <span>Blog Title</span>
+            <input id="postTitle" type="text" placeholder="Example: 7 ways to reduce claim denials" required>
+          </label>
+
+          <div class="admin-two-col">
+            <label>
+              <span>Slug</span>
+              <input id="postSlug" type="text" placeholder="auto-generated">
+            </label>
+            <label>
+              <span>Category</span>
+              <input id="postCategory" type="text" value="Medical Billing" required>
+            </label>
+          </div>
+
+          <div class="admin-two-col">
+            <label>
+              <span>Author</span>
+              <input id="postAuthor" type="text" value="RevCare Edge" required>
+            </label>
+            <label>
+              <span>Date</span>
+              <input id="postDate" type="date" required>
+            </label>
+          </div>
+
+          <label>
+            <span>Listing Description</span>
+            <textarea id="postExcerpt" rows="3" placeholder="Short summary shown on the blog page." required></textarea>
+          </label>
+
+          <label>
+            <span>Cover Image</span>
+            <input id="coverImageFile" type="file" accept="image/*">
+          </label>
+          <div id="coverImagePreview" class="admin-image-preview"></div>
+
+          <label>
+            <span>Full Blog Article</span>
+            <textarea id="postBody" rows="12" placeholder="Write the full article here. Use blank lines between paragraphs." required></textarea>
+          </label>
+
+          <button type="submit" class="admin-primary-btn">
+            <iconify-icon icon="fa6-solid:floppy-disk"></iconify-icon>
+            <span>Save Blog Post</span>
+          </button>
+          <p id="adminStatus" class="admin-status info"></p>
+        </form>
+      </section>
+
+      <aside class="admin-side">
+        <section class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <span class="blog-eyebrow">Posts</span>
+              <h2>Saved Blogs</h2>
+            </div>
+          </div>
+          <div id="adminPostList" class="admin-post-list"></div>
+        </section>
+
+        <section class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <span class="blog-eyebrow">Backup</span>
+              <h2>Import / Export</h2>
+            </div>
+          </div>
+          <div class="admin-actions-stack">
+            <button id="exportBlogData" type="button" class="admin-light-btn">Export blog-content.js</button>
+            <label class="admin-upload-btn">
+              <span>Import blog-content.js</span>
+              <input id="importBlogData" type="file" accept=".js,.json">
+            </label>
+            <button id="resetSeedPosts" type="button" class="admin-danger-btn">Restore Starter Posts</button>
+          </div>
+        </section>
+
+        <section class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <span class="blog-eyebrow">Publishing</span>
+              <h2>Push To GitHub</h2>
+            </div>
+          </div>
+          <form id="githubPublishForm" class="admin-form compact">
+            <label>
+              <span>GitHub Owner</span>
+              <input id="githubOwner" type="text" placeholder="username or organization">
+            </label>
+            <label>
+              <span>Repository</span>
+              <input id="githubRepo" type="text" placeholder="repo name">
+            </label>
+            <div class="admin-two-col">
+              <label>
+                <span>Branch</span>
+                <input id="githubBranch" type="text" value="main">
+              </label>
+              <label>
+                <span>File Path</span>
+                <input id="githubPath" type="text" value="blog-content.js">
+              </label>
+            </div>
+            <label>
+              <span>GitHub Token</span>
+              <input id="githubToken" type="password" placeholder="fine-grained token">
+            </label>
+            <button type="submit" class="admin-primary-btn">Publish Content File</button>
+            <p class="admin-help">When the repo is connected later, this updates only blog-content.js.</p>
+          </form>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script src="blog-content.js"></script>
+  <script src="blog-data.js"></script>
+  <script src="blog-admin.js"></script>
+</body>
+
+</html>
