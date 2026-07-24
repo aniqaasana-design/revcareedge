@@ -457,7 +457,7 @@ html {
   transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
   position: relative;
   min-height: 190px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .specialty-card:hover {
