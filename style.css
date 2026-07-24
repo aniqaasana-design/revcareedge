@@ -93,7 +93,7 @@ body {
 /* Responsive Wave Swap */
 @media (max-width: 767px) {
   .wave-bg {
-    background-image: url('assets/wave%20for%20mobile.png');
+    background-image: url('assets/wave%20for%20mobile.jpeg');
     background-position: top center;
     background-size: cover;
     height: 112% !important;
