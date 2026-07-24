@@ -1788,8 +1788,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const formHeading = document.getElementById('form-heading');
       const formBtnText = document.getElementById('form-btn-text');
-      if (formHeading) formHeading.textContent = `Book Your ${formattedTitle} Analysis`;
-      if (formBtnText) formBtnText.textContent = `Book Your ${formattedTitle} Analysis`;
+      if (formHeading) formHeading.textContent = `Book Your ${formattedTitle} Consultation`;
+      if (formBtnText) formBtnText.textContent = `Book Your ${formattedTitle} Consultation`;
       
     } else {
       dynamicTitle.textContent = 'Service Details';
