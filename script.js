@@ -764,7 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll([
       '#mainHeader',
       '#navbar',
-      '.wave-bg',
+
       '#heroBadge',
       '#heroHeadline',
       '#heroSubheadline',
@@ -948,8 +948,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animateElement(mainHeader, { from: 'translateY(-58px)', duration: 680 });
 
-    const wave = document.querySelector('.wave-bg');
-    if (wave) animateElement(wave, { from: 'translateY(54px) scale(1.12)', duration: 1200, delay: 80 });
+
 
     staggerElements(document.querySelectorAll('.bubble-orb'), {
       from: 'scale(0.72)',
@@ -1084,16 +1083,7 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 0.7
       });
 
-      // 2. Wave background fades and flows in
-      if (document.querySelector('.wave-bg')) {
-        tl.from('.wave-bg', {
-          opacity: 0,
-          scale: 1.25,
-          y: 80,
-          duration: 1.8,
-          ease: 'power3.out'
-        }, '-=0.7');
-      }
+
 
       // 3. Trust badge fades and pops up slightly
       if (document.getElementById('heroBadge')) {
@@ -1578,40 +1568,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
-        // 2. Wave Parallax Scroll Effect
-        const waveDesk = document.getElementById('parallax-wave-desktop');
-        if (waveDesk && formCard) {
-          gsap.fromTo(waveDesk, {
-            yPercent: -20
-          }, {
-            scrollTrigger: {
-              trigger: formCard,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.5
-            },
-            yPercent: 20,
-            force3D: true,
-            ease: 'none'
-          });
-        }
 
-        const waveMob = document.getElementById('parallax-wave-mobile');
-        if (waveMob && formCard) {
-          gsap.fromTo(waveMob, {
-            yPercent: -20
-          }, {
-            scrollTrigger: {
-              trigger: formCard,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.5
-            },
-            yPercent: 20,
-            force3D: true,
-            ease: 'none'
-          });
-        }
 
         // 3. Info Cards Stagger
         const infoCards = document.getElementById('contactInfoCardsContainer');
