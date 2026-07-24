@@ -79,7 +79,7 @@ module.exports = async (req, res) => {
     // Prepare emails
     const host = req.headers.host || 'revcareedge.com';
     const protocol = host.includes('localhost') ? 'http' : 'https';
-    const logoUrl = `${protocol}://${host}/logo.jpeg`;
+    const logoUrl = `${protocol}://${host}/assets/logo.png`;
     const siteUrl = `${protocol}://${host}`;
 
     const clientHtml = `
@@ -148,7 +148,7 @@ module.exports = async (req, res) => {
             
             <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 20px; margin-bottom: 25px;">
               <p style="margin: 0; font-size: 15px; color: #166534; line-height: 1.6; font-weight: 500;">
-                <span style="font-size: 18px; margin-right: 5px;">📞</span> One of our revenue cycle experts will review your details and contact you within <strong>24 hours</strong>.
+                <span style="font-size: 18px; margin-right: 5px;">📞</span> One of our revenue cycle experts will review your details and contact you <strong>shortly</strong>.
               </p>
             </div>
             

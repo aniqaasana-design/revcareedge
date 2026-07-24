@@ -1801,7 +1801,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (result.success) {
-          formStatus.textContent = 'Thank you! We will contact you within 24 hours.';
+          formStatus.textContent = 'Thank you! We will contact you shortly.';
           formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-800');
           formStatus.classList.add('bg-green-100', 'text-green-800');
           formStatus.setAttribute('tabindex', '-1');
