@@ -92,9 +92,9 @@ module.exports = async (req, res) => {
           
           <!-- Body -->
           <div style="padding: 40px 30px;">
-            <h2 style="color: #101828; margin-top: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">New Analysis Request 🚀</h2>
+            <h2 style="color: #101828; margin-top: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;">New ${selectedService ? selectedService + ' ' : ''}Request 🚀</h2>
             <p style="font-size: 16px; color: #475467; line-height: 1.6; margin-bottom: 30px;">
-              Great news! A new prospective client has requested a free practice analysis through the website.
+              Great news! A new prospective client has requested ${selectedService ? 'a <strong>' + selectedService + '</strong> analysis' : 'a free practice analysis'} through the website.
             </p>
             
             <!-- Data Container -->
@@ -147,7 +147,7 @@ module.exports = async (req, res) => {
               Hi <strong>${fullName.split(' ')[0]}</strong>,
             </p>
             <p style="font-size: 16px; color: #475467; line-height: 1.6; margin-bottom: 25px;">
-              Thank you for reaching out to <strong>Rev Care Edge</strong>. We have successfully received your request for a free billing analysis!
+              Thank you for reaching out to <strong>Rev Care Edge</strong>. We have successfully received your request for ${selectedService ? 'a <strong>' + selectedService + '</strong> analysis' : 'a free billing analysis'}!
             </p>
             
             <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 20px; margin-bottom: 25px;">
@@ -180,14 +180,14 @@ module.exports = async (req, res) => {
     const clientMailOptions = {
       from: process.env.ZOHO_EMAIL,
       to: recipients,
-      subject: 'New Analysis Request',
+      subject: `New ${selectedService ? selectedService + ' ' : ''}Request`,
       html: clientHtml
     };
 
     const autoReplyOptions = {
       from: process.env.ZOHO_EMAIL,
       to: email,
-      subject: 'We received your analysis request - Rev Care Edge',
+      subject: `We received your ${selectedService ? selectedService + ' ' : ''}request - Rev Care Edge`,
       html: autoReplyHtml
     };
 

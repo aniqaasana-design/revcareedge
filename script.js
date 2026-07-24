@@ -1785,6 +1785,12 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Update page title
       document.title = `${formattedTitle} | Rev Care Edge`;
+      
+      const formHeading = document.getElementById('form-heading');
+      const formBtnText = document.getElementById('form-btn-text');
+      if (formHeading) formHeading.textContent = `Book Your ${formattedTitle} Analysis`;
+      if (formBtnText) formBtnText.textContent = `Book Your ${formattedTitle} Analysis`;
+      
     } else {
       dynamicTitle.textContent = 'Service Details';
       dynamicDesc.textContent = 'Please select a specific service or specialty from our menu to view its details.';

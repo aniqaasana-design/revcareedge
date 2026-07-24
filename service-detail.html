@@ -1176,7 +1176,7 @@
             <div class="bg-white rounded-[2rem] p-8 md:p-10 shadow-2xl shadow-brand-navy/5 border border-slate-100 relative">
               <div class="absolute -top-4 -right-4 w-20 h-20 bg-brand-orange/10 rounded-full blur-xl"></div>
               <div class="relative z-10">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-[#101828] mb-2">Book Your Free Analysis</h2>
+                <h2 id="form-heading" class="text-2xl md:text-3xl font-extrabold text-[#101828] mb-2">Book Your Free Analysis</h2>
                 <p class="text-slate-500 text-sm leading-relaxed mb-7">Identify hidden revenue opportunities with a free billing analysis. Our experts will review your current revenue cycle and create a customized strategy designed around your specialty.</p>
 
                 <form id="billingAnalysisForm" class="space-y-4">
@@ -1195,7 +1195,7 @@
                   </div>
                   <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off">
                   <button type="submit" id="analysisSubmitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-[#F5872E] to-[#F2650F] text-white font-bold shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:scale-[1.015] active:scale-[0.99] transition-all duration-200 text-base flex items-center justify-center gap-2">
-                    Book Your Free Analysis &rarr;
+                    <span id="form-btn-text">Book Your Free Analysis</span> &rarr;
                   </button>
                   <div id="formStatus" class="hidden text-center mt-3 p-3 rounded-lg text-sm font-semibold"></div>
                 </form>
