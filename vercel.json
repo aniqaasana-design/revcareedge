@@ -4,9 +4,6 @@
   "functions": {
     "api/submit.js": {
       "runtime": "@vercel/node@2.0.0"
-    },
-    "middleware.js": {
-      "runtime": "@vercel/edge"
     }
   }
 }
