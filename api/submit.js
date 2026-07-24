@@ -39,8 +39,8 @@ module.exports = async (req, res) => {
   });
 
   try {
-    const { fullName, practiceName, email, phone, collectionsRange, website } = req.body;
-    console.log('request body', { fullName, practiceName, email, phone, collectionsRange, website });
+    const { fullName, practiceName, email, phone, collectionsRange, website, message } = req.body;
+    console.log('request body', { fullName, practiceName, email, phone, collectionsRange, website, message });
 
     // Honeypot check
     if (website) {
@@ -107,9 +107,13 @@ module.exports = async (req, res) => {
                 <span style="display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600; margin-bottom: 4px;">Email Address</span>
                 <a href="mailto:${email}" style="display: inline-block; font-size: 16px; color: #0284c7; text-decoration: none; font-weight: 500;">${email}</a>
               </div>
-              <div>
+              <div style="margin-bottom: 16px;">
                 <span style="display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600; margin-bottom: 4px;">Phone Number</span>
                 <a href="tel:${phone}" style="display: inline-block; font-size: 16px; color: #0f172a; text-decoration: none; font-weight: 500;">${phone}</a>
+              </div>
+              <div>
+                <span style="display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600; margin-bottom: 4px;">Message</span>
+                <p style="margin: 0; font-size: 16px; color: #0f172a; font-weight: 400; white-space: pre-wrap;">${message || '<i>No message provided</i>'}</p>
               </div>
             </div>
           </div>
