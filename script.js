@@ -1759,4 +1759,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initFaqAccordion();
   initLightweightTestimonials();
+
+  // ===== ANALYSIS FORM SUBMISSION (Redesigned Form) =====
+  document.querySelectorAll('#billingAnalysisForm').forEach(function(analysisForm) {
+    analysisForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      var submitBtn = analysisForm.querySelector('button[type="submit"]');
+      var formStatus = analysisForm.querySelector('#formStatus');
+      
+      var originalBtnText = submitBtn.innerHTML;
+      submitBtn.innerHTML = 'Submitting...';
+      submitBtn.disabled = true;
+      
+      formStatus.classList.add('hidden');
+      formStatus.classList.remove('bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+      var formData = new FormData(analysisForm);
+      var data = {
+        fullName: formData.get('fullName'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        website: formData.get('website') || ''
+      };
+
+      try {
+        var response = await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        var result;
+        var contentType = response.headers.get('content-type') || '';
+        if (contentType.indexOf('application/json') !== -1) {
+          result = await response.json();
+        } else {
+          var text = await response.text();
+          throw new Error(text || 'Invalid server response');
+        }
+
+        if (result.success) {
+          formStatus.textContent = 'Thank you! We will contact you within 24 hours.';
+          formStatus.classList.remove('hidden', 'bg-red-100', 'text-red-800');
+          formStatus.classList.add('bg-green-100', 'text-green-800');
+          formStatus.setAttribute('tabindex', '-1');
+          formStatus.focus();
+          analysisForm.reset();
+        } else {
+          throw new Error(result.error || 'An error occurred. Please try again.');
+        }
+      } catch (err) {
+        console.error('Form submission error:', err);
+        formStatus.textContent = err.message || 'An error occurred. Please try again.';
+        formStatus.classList.remove('hidden', 'bg-green-100', 'text-green-800');
+        formStatus.classList.add('bg-red-100', 'text-red-800');
+      } finally {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+      }
+    });
+  });
 });
