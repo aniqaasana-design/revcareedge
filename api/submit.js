@@ -39,8 +39,8 @@ module.exports = async (req, res) => {
   });
 
   try {
-    const { fullName, practiceName, email, phone, collectionsRange, website, message } = req.body;
-    console.log('request body', { fullName, practiceName, email, phone, collectionsRange, website, message });
+    const { fullName, practiceName, email, phone, collectionsRange, website, message, selectedService } = req.body;
+    console.log('request body', { fullName, practiceName, email, phone, collectionsRange, website, message, selectedService });
 
     // Honeypot check
     if (website) {
@@ -110,6 +110,10 @@ module.exports = async (req, res) => {
               <div style="margin-bottom: 16px;">
                 <span style="display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600; margin-bottom: 4px;">Phone Number</span>
                 <a href="tel:${phone}" style="display: inline-block; font-size: 16px; color: #0f172a; text-decoration: none; font-weight: 500;">${phone}</a>
+              </div>
+              <div>
+                <span style="display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600; margin-bottom: 4px;">Service/Specialty Selected</span>
+                <p style="margin: 0; font-size: 16px; color: #0f172a; font-weight: 500; margin-bottom: 16px;">${selectedService || '<i>None (Homepage)</i>'}</p>
               </div>
               <div>
                 <span style="display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600; margin-bottom: 4px;">Message</span>

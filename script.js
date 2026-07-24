@@ -1760,6 +1760,37 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaqAccordion();
   initLightweightTestimonials();
 
+  // ===== DYNAMIC SERVICE/SPECIALTY PAGE =====
+  const dynamicTitle = document.getElementById('dynamic-title');
+  const dynamicDesc = document.getElementById('dynamic-desc');
+  const selectedServiceInput = document.getElementById('selectedService');
+
+  if (dynamicTitle && dynamicDesc) {
+    const params = new URLSearchParams(window.location.search);
+    const typeKey = params.get('type');
+
+    if (typeKey) {
+      // Format "behavioral-health" to "Behavioral Health"
+      const formattedTitle = typeKey.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      
+      // Professional Fallback Description
+      const description = `We provide expert Revenue Cycle Management and comprehensive support solutions tailored specifically for ${formattedTitle}. Our certified specialists work seamlessly with your practice to optimize workflows, minimize claim denials, ensure strict compliance, and accelerate your cash flow. Let us handle the financial complexities so you can focus entirely on delivering exceptional patient care.`;
+
+      dynamicTitle.textContent = formattedTitle;
+      dynamicDesc.textContent = description;
+      
+      if (selectedServiceInput) {
+        selectedServiceInput.value = formattedTitle;
+      }
+      
+      // Update page title
+      document.title = `${formattedTitle} | Rev Care Edge`;
+    } else {
+      dynamicTitle.textContent = 'Service Details';
+      dynamicDesc.textContent = 'Please select a specific service or specialty from our menu to view its details.';
+    }
+  }
+
   // ===== ANALYSIS FORM SUBMISSION (Redesigned Form) =====
   document.querySelectorAll('#billingAnalysisForm').forEach(function(analysisForm) {
     analysisForm.addEventListener('submit', async function(e) {
@@ -1781,6 +1812,7 @@ document.addEventListener('DOMContentLoaded', () => {
         email: formData.get('email'),
         phone: formData.get('phone'),
         message: formData.get('message') || '',
+        selectedService: formData.get('selectedService') || '',
         website: formData.get('website') || ''
       };
 
