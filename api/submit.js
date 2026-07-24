@@ -79,7 +79,7 @@ module.exports = async (req, res) => {
     // Prepare emails
     const host = req.headers.host || 'revcareedge.com';
     const protocol = host.includes('localhost') ? 'http' : 'https';
-    const logoUrl = `${protocol}://${host}/assets/logo.png`;
+    const logoUrl = `${protocol}://${host}/assets/logo-footer.png`;
     const siteUrl = `${protocol}://${host}`;
 
     const clientHtml = `
