@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (t.includes('manager') || t.includes('support')) return 'fa6-solid:headset';
 
     // Bookkeeping column
-    if (t.includes('bookkeeping')) return 'fa6-solid:book';
+    if (t.includes('accounting') || t.includes('bookkeeping')) return 'fa6-solid:book';
     if (t.includes('financial report') || t.includes('report')) return 'fa6-solid:chart-bar';
     if (t.includes('revenue tracking') || t.includes('tracking')) return 'fa6-solid:chart-line';
     if (t.includes('payment')) return 'fa6-solid:file-invoice-dollar';
