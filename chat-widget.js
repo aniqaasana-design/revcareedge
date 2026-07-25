@@ -385,8 +385,8 @@
     trigger.setAttribute('role', 'button');
     trigger.setAttribute('aria-label', 'Open support chat');
     trigger.innerHTML = `
-      <svg viewBox="0 0 24 24">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
       </svg>
     `;
     document.body.appendChild(trigger);
@@ -450,6 +450,8 @@
 
     function openChatWindow() {
       isWindowOpen = true;
+      win.style.display = 'flex';
+      void win.offsetWidth;
       win.classList.add('open');
       win.setAttribute('aria-hidden', 'false');
       trigger.classList.add('active');
@@ -464,6 +466,7 @@
     function closeChatWindow() {
       isWindowOpen = false;
       win.classList.remove('open');
+      win.style.display = 'none';
       win.setAttribute('aria-hidden', 'true');
       trigger.classList.remove('active');
     }
@@ -859,29 +862,35 @@
     function handleInput(text, value = null) {
       if (!text.trim()) return;
 
-      // 1. Append User Message
+      const targetValue = value || text;
+      const normalizedVal = normalizeText(targetValue);
+
+      // INSTANT SINGLE-CLICK HANDOFF: If user clicks "Talk to a Person" or enters human agent query
+      if (value === "human" || /\b(human|agent|person|representative|live|speak to a person|talk to a human|tawk|real person)\b/i.test(normalizedVal)) {
+        addMessage("user", text);
+        chatInput.value = '';
+        clearQuickReplies();
+        handoffToHuman();
+        return;
+      }
+
+      // Standard Bot Conversation Flow
       addMessage("user", text);
       chatInput.value = '';
       clearQuickReplies();
 
-      // 2. Fetch response
-      const botResponse = getBotResponse(value || text);
-
-      // 3. Show typing and resolve bot response
+      const botResponse = getBotResponse(targetValue);
       showTypingIndicator();
       setTimeout(() => {
         hideTypingIndicator();
         
         if (botResponse.type === "handoff") {
-          addMessage("bot", botResponse.text);
-          setTimeout(() => {
-            openTawkChat();
-          }, 600);
+          handoffToHuman();
         } else if (botResponse.type === "fallback") {
           addMessage("bot", botResponse.text);
           // Show fallback system-bot alert with contact channels
           showQuickReplies([
-            { text: "👥 Chat with a Human Agent", value: "human" },
+            { text: "👥 Talk to a Person", value: "human" },
             { text: "🩺 Services Overview", value: "medical billing" },
             { text: "📊 Book Free Audit", value: "free analysis" }
           ]);
@@ -896,19 +905,24 @@
             { text: "👥 Talk to a Person", value: "human" }
           ]);
         }
-      }, 1000); // 1.0 second typing delay for natural feel
+      }, 800); // 0.8 second typing delay
     }
 
-    // --- TAWK.TO HANDOFF ENGINE ---
-    function openTawkChat() {
+    // --- TAWK.TO HUMAN HANDOFF ENGINE ---
+    function handoffToHuman() {
+      // 1. Force-close custom panel immediately (display:none hard close)
+      closeChatWindow();
+
+      // 2. Hide custom trigger bubble
+      const trg = document.getElementById('revcare-chat-trigger');
+      if (trg) trg.style.display = 'none';
+
+      // 3. Immediately maximize Tawk.to if initialized
       const tawk = window.Tawk_API;
       if (tawk && typeof tawk.maximize === 'function') {
         try {
           if (tawk.showWidget) tawk.showWidget();
           tawk.maximize();
-          closeChatWindow();
-          const trg = document.getElementById('revcare-chat-trigger');
-          if (trg) trg.style.display = 'none';
           return;
         } catch(e) {
           console.error("Tawk.to error:", e);
@@ -917,7 +931,7 @@
         }
       }
 
-      // If Tawk.to is still downloading/initializing in the background, retry for up to 5 seconds
+      // 4. Poll for up to 5 seconds if Tawk.to is still initializing in the background
       let attempts = 0;
       const pollInterval = setInterval(() => {
         attempts++;
@@ -927,13 +941,10 @@
           try {
             if (activeTawk.showWidget) activeTawk.showWidget();
             activeTawk.maximize();
-            closeChatWindow();
-            const trg = document.getElementById('revcare-chat-trigger');
-            if (trg) trg.style.display = 'none';
           } catch(e) {
             fallbackHandoff();
           }
-        } else if (attempts >= 10) { // 10 * 500ms = 5 seconds
+        } else if (attempts >= 10) { // 5 seconds timeout
           clearInterval(pollInterval);
           fallbackHandoff();
         }
@@ -941,6 +952,12 @@
     }
 
     function fallbackHandoff() {
+      // Re-open custom panel displaying fallback alert if Tawk is offline/blocked
+      win.style.display = 'flex';
+      win.classList.add('open');
+      const trg = document.getElementById('revcare-chat-trigger');
+      if (trg) trg.style.display = 'flex';
+
       addMessage("system-bot", "I'm trying to connect you to a live agent, but our live support channels are currently offline or unavailable. Please email us at <strong>info@revcareedge.com</strong> or call <strong>848-266-5475</strong> for immediate assistance!");
     }
 
