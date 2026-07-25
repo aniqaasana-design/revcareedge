@@ -511,7 +511,7 @@
       void win.offsetWidth;
       win.classList.add('open');
       win.setAttribute('aria-hidden', 'false');
-      trigger.classList.add('active');
+      trigger.style.display = 'none';
       chatInput.focus();
 
       // Start welcome flow if feed is empty
@@ -525,7 +525,7 @@
       win.classList.remove('open');
       win.style.display = 'none';
       win.setAttribute('aria-hidden', 'true');
-      trigger.classList.remove('active');
+      trigger.style.display = 'flex';
     }
 
     trigger.addEventListener('click', toggleChatWindow);
@@ -1026,7 +1026,7 @@
       win.style.display = 'flex';
       win.classList.add('open');
       const trg = document.getElementById('revcare-chat-trigger');
-      if (trg) trg.style.display = 'flex';
+      if (trg) trg.style.display = 'none';
 
       addMessage("system-bot", "I'm trying to connect you to a live agent, but our live support channels are currently offline or unavailable. Please email us at <strong>info@revcareedge.com</strong> or call <strong>848-266-5475</strong> for immediate assistance!");
     }
