@@ -107,7 +107,7 @@
       right: 24px;
       width: 56px;
       height: 56px;
-      background-color: #3E7B4F;
+      background-color: #101828;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -119,7 +119,7 @@
     }
     #revcare-chat-trigger:hover {
       transform: scale(1.08);
-      background-color: #2F5D3C;
+      background-color: #1F2D44;
       box-shadow: 0 8px 24px rgba(16, 24, 40, 0.22);
     }
     #revcare-chat-trigger svg {
