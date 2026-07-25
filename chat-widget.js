@@ -63,6 +63,45 @@
       display: none !important;
     }
 
+    #revcare-chat-connecting {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: #ffffff;
+      border: 1.5px solid #3E7B4F;
+      border-radius: 30px;
+      padding: 12px 20px;
+      box-shadow: 0 8px 24px rgba(16, 24, 40, 0.18);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 999999;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #101828;
+      opacity: 0;
+      transform: translateY(12px) scale(0.95);
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #revcare-chat-connecting.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .revcare-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2.2px solid #E2E8F0;
+      border-top-color: #3E7B4F;
+      border-radius: 50%;
+      animation: revcare-spin 0.75s linear infinite;
+    }
+    @keyframes revcare-spin {
+      to { transform: rotate(360deg); }
+    }
+
     #revcare-chat-trigger {
       position: fixed;
       bottom: 24px;
@@ -429,6 +468,24 @@
       </div>
     `;
     document.body.appendChild(win);
+
+    // 3. Create Connecting Toast Indicator
+    const connectingToast = document.createElement('div');
+    connectingToast.id = 'revcare-chat-connecting';
+    connectingToast.setAttribute('aria-live', 'polite');
+    connectingToast.innerHTML = `
+      <div class="revcare-spinner"></div>
+      <span>Connecting you to our team...</span>
+    `;
+    document.body.appendChild(connectingToast);
+
+    function showConnectingIndicator() {
+      connectingToast.classList.add('active');
+    }
+
+    function hideConnectingIndicator() {
+      connectingToast.classList.remove('active');
+    }
 
     // --- ELEMENT CACHING ---
     const messagesContainer = document.getElementById('revcare-chat-messages');
@@ -917,41 +974,54 @@
       const trg = document.getElementById('revcare-chat-trigger');
       if (trg) trg.style.display = 'none';
 
-      // 3. Immediately maximize Tawk.to if initialized
-      const tawk = window.Tawk_API;
-      if (tawk && typeof tawk.maximize === 'function') {
-        try {
-          if (tawk.showWidget) tawk.showWidget();
-          tawk.maximize();
-          return;
-        } catch(e) {
-          console.error("Tawk.to error:", e);
-          fallbackHandoff();
-          return;
-        }
-      }
+      // 3. Show connecting indicator immediately (0ms delay, no blank gap!)
+      showConnectingIndicator();
 
-      // 4. Poll for up to 5 seconds if Tawk.to is still initializing in the background
+      // 4. Helper to attempt launching Tawk
+      const launchTawk = () => {
+        const tawk = window.Tawk_API;
+        if (tawk && typeof tawk.maximize === 'function') {
+          try {
+            if (tawk.showWidget) tawk.showWidget();
+            tawk.maximize();
+            hideConnectingIndicator();
+            return true;
+          } catch(e) {
+            console.error("Tawk.to launch error:", e);
+            hideConnectingIndicator();
+            fallbackHandoff();
+            return true;
+          }
+        }
+        return false;
+      };
+
+      // Try launching immediately if Tawk is already ready
+      if (launchTawk()) return;
+
+      // If Tawk.to is still downloading/initializing in background, set onLoad listener + poll for up to 6s
+      window.Tawk_API = window.Tawk_API || {};
+      const prevOnLoad = window.Tawk_API.onLoad;
+      window.Tawk_API.onLoad = function() {
+        if (prevOnLoad) prevOnLoad();
+        launchTawk();
+      };
+
       let attempts = 0;
       const pollInterval = setInterval(() => {
         attempts++;
-        const activeTawk = window.Tawk_API;
-        if (activeTawk && typeof activeTawk.maximize === 'function') {
+        if (launchTawk()) {
           clearInterval(pollInterval);
-          try {
-            if (activeTawk.showWidget) activeTawk.showWidget();
-            activeTawk.maximize();
-          } catch(e) {
-            fallbackHandoff();
-          }
-        } else if (attempts >= 10) { // 5 seconds timeout
+        } else if (attempts >= 12) { // 6 seconds timeout
           clearInterval(pollInterval);
+          hideConnectingIndicator();
           fallbackHandoff();
         }
       }, 500);
     }
 
     function fallbackHandoff() {
+      hideConnectingIndicator();
       // Re-open custom panel displaying fallback alert if Tawk is offline/blocked
       win.style.display = 'flex';
       win.classList.add('open');
