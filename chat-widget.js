@@ -134,6 +134,67 @@
     #revcare-chat-trigger.active svg {
       transform: rotate(90deg);
     }
+
+    /* Notification badge on trigger bubble */
+    #revcare-chat-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      width: 18px;
+      height: 18px;
+      background-color: #F5872E;
+      border-radius: 50%;
+      border: 2.5px solid #ffffff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+      z-index: 100001;
+      animation: revcare-badge-pulse 1.5s ease-in-out infinite;
+    }
+    #revcare-chat-badge.visible {
+      display: flex;
+    }
+    @keyframes revcare-badge-pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 135, 46, 0.5); }
+      50% { transform: scale(1.15); box-shadow: 0 0 0 6px rgba(245, 135, 46, 0); }
+    }
+
+    /* Proactive greeting tooltip */
+    #revcare-chat-greeting {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      background: #ffffff;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px 14px 4px 14px;
+      padding: 12px 16px;
+      box-shadow: 0 8px 24px rgba(16, 24, 40, 0.16);
+      max-width: 240px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #101828;
+      z-index: 99998;
+      opacity: 0;
+      transform: translateY(10px) scale(0.95);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #revcare-chat-greeting.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    #revcare-chat-greeting strong {
+      display: block;
+      color: #3E7B4F;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
     
     #revcare-chat-window {
       position: fixed;
@@ -514,6 +575,9 @@
       trigger.style.display = 'none';
       chatInput.focus();
 
+      // Hide notification badge and greeting tooltip
+      hideBadgeAndGreeting();
+
       // Start welcome flow if feed is empty
       if (messagesContainer.children.length === 0) {
         showWelcomeMessage();
@@ -530,6 +594,44 @@
 
     trigger.addEventListener('click', toggleChatWindow);
     closeBtn.addEventListener('click', closeChatWindow);
+
+    // --- NOTIFICATION BADGE & PROACTIVE GREETING ---
+    const badge = document.createElement('div');
+    badge.id = 'revcare-chat-badge';
+    badge.textContent = '1';
+    trigger.style.position = 'relative';
+    trigger.appendChild(badge);
+
+    const greeting = document.createElement('div');
+    greeting.id = 'revcare-chat-greeting';
+    greeting.innerHTML = `<strong>👋 RevCare Assistant</strong>Hi there! Got a question about medical billing or RCM? I can help right now.`;
+    document.body.appendChild(greeting);
+
+    function showBadgeAndGreeting() {
+      badge.classList.add('visible');
+      greeting.classList.add('visible');
+    }
+
+    function hideBadgeAndGreeting() {
+      badge.classList.remove('visible');
+      greeting.classList.remove('visible');
+    }
+
+    // Click on greeting tooltip also opens chat
+    greeting.addEventListener('click', () => {
+      openChatWindow();
+    });
+
+    // Show badge + greeting automatically after 3 seconds on page load
+    setTimeout(() => {
+      if (!isWindowOpen) {
+        showBadgeAndGreeting();
+      }
+      // Auto-hide greeting after 12 seconds (badge stays until click)
+      setTimeout(() => {
+        greeting.classList.remove('visible');
+      }, 12000);
+    }, 3000);
 
     // --- MESSAGE RENDERING ---
     function addMessage(sender, text) {
