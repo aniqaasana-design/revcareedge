@@ -14,14 +14,14 @@
     window.Tawk_LoadStart = new Date();
 
     // Immediately hide Tawk's default bubble, widget, or greeting on load
-    window.Tawk_API.onLoad = function() {
+    window.Tawk_API.onLoad = function () {
       if (window.Tawk_API && window.Tawk_API.hideWidget) {
         window.Tawk_API.hideWidget();
       }
     };
 
     // When user closes Tawk chat, hide Tawk widget and restore RevCare custom bubble
-    window.Tawk_API.onChatMinimized = function() {
+    window.Tawk_API.onChatMinimized = function () {
       if (window.Tawk_API && window.Tawk_API.hideWidget) {
         window.Tawk_API.hideWidget();
       }
@@ -29,12 +29,12 @@
       if (trigger) trigger.style.display = 'flex';
     };
 
-    window.Tawk_API.onChatHidden = function() {
+    window.Tawk_API.onChatHidden = function () {
       const trigger = document.getElementById('revcare-chat-trigger');
       if (trigger) trigger.style.display = 'flex';
     };
 
-    window.Tawk_API.onChatMaximized = function() {
+    window.Tawk_API.onChatMaximized = function () {
       const trigger = document.getElementById('revcare-chat-trigger');
       const win = document.getElementById('revcare-chat-window');
       if (trigger) trigger.style.display = 'none';
@@ -42,7 +42,7 @@
     };
 
     // Inject Tawk.to script asynchronously early
-    (function() {
+    (function () {
       var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0] || document.head;
       s1.async = true;
       s1.src = 'https://embed.tawk.to/' + TAWK_PROPERTY_ID + '/' + TAWK_WIDGET_ID;
@@ -133,67 +133,6 @@
     }
     #revcare-chat-trigger.active svg {
       transform: rotate(90deg);
-    }
-
-    /* Notification badge on trigger bubble */
-    #revcare-chat-badge {
-      position: absolute;
-      top: -3px;
-      right: -3px;
-      width: 18px;
-      height: 18px;
-      background-color: #F5872E;
-      border-radius: 50%;
-      border: 2.5px solid #ffffff;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
-      color: #ffffff;
-      z-index: 100001;
-      animation: revcare-badge-pulse 1.5s ease-in-out infinite;
-    }
-    #revcare-chat-badge.visible {
-      display: flex;
-    }
-    @keyframes revcare-badge-pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 135, 46, 0.5); }
-      50% { transform: scale(1.15); box-shadow: 0 0 0 6px rgba(245, 135, 46, 0); }
-    }
-
-    /* Proactive greeting tooltip */
-    #revcare-chat-greeting {
-      position: fixed;
-      bottom: 90px;
-      right: 24px;
-      background: #ffffff;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 14px 14px 4px 14px;
-      padding: 12px 16px;
-      box-shadow: 0 8px 24px rgba(16, 24, 40, 0.16);
-      max-width: 240px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 13px;
-      line-height: 1.5;
-      color: #101828;
-      z-index: 99998;
-      opacity: 0;
-      transform: translateY(10px) scale(0.95);
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #revcare-chat-greeting.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-      cursor: pointer;
-    }
-    #revcare-chat-greeting strong {
-      display: block;
-      color: #3E7B4F;
-      font-size: 12px;
-      margin-bottom: 3px;
     }
     
     #revcare-chat-window {
@@ -575,9 +514,6 @@
       trigger.style.display = 'none';
       chatInput.focus();
 
-      // Hide notification badge and greeting tooltip
-      hideBadgeAndGreeting();
-
       // Start welcome flow if feed is empty
       if (messagesContainer.children.length === 0) {
         showWelcomeMessage();
@@ -595,44 +531,6 @@
     trigger.addEventListener('click', toggleChatWindow);
     closeBtn.addEventListener('click', closeChatWindow);
 
-    // --- NOTIFICATION BADGE & PROACTIVE GREETING ---
-    const badge = document.createElement('div');
-    badge.id = 'revcare-chat-badge';
-    badge.textContent = '1';
-    trigger.style.position = 'relative';
-    trigger.appendChild(badge);
-
-    const greeting = document.createElement('div');
-    greeting.id = 'revcare-chat-greeting';
-    greeting.innerHTML = `<strong>👋 RevCare Assistant</strong>Hi there! Got a question about medical billing or RCM? I can help right now.`;
-    document.body.appendChild(greeting);
-
-    function showBadgeAndGreeting() {
-      badge.classList.add('visible');
-      greeting.classList.add('visible');
-    }
-
-    function hideBadgeAndGreeting() {
-      badge.classList.remove('visible');
-      greeting.classList.remove('visible');
-    }
-
-    // Click on greeting tooltip also opens chat
-    greeting.addEventListener('click', () => {
-      openChatWindow();
-    });
-
-    // Show badge + greeting automatically after 3 seconds on page load
-    setTimeout(() => {
-      if (!isWindowOpen) {
-        showBadgeAndGreeting();
-      }
-      // Auto-hide greeting after 12 seconds (badge stays until click)
-      setTimeout(() => {
-        greeting.classList.remove('visible');
-      }, 12000);
-    }, 3000);
-
     // --- MESSAGE RENDERING ---
     function addMessage(sender, text) {
       const msg = document.createElement('div');
@@ -645,7 +543,7 @@
     function showTypingIndicator() {
       // Remove existing typing indicators if any
       hideTypingIndicator();
-      
+
       const indicator = document.createElement('div');
       indicator.className = 'typing-indicator';
       indicator.innerHTML = `<span></span><span></span><span></span>`;
@@ -681,8 +579,8 @@
         id: "handoff",
         type: "handoff",
         triggers: [
-          "human", "agent", "person", "representative", "live agent", "speak to a person", 
-          "talk to a human", "tawk", "staff", "real person", "help desk", "operator", 
+          "human", "agent", "person", "representative", "live agent", "speak to a person",
+          "talk to a human", "tawk", "staff", "real person", "help desk", "operator",
           "customer service", "talk to human", "speak with agent", "connect to agent"
         ],
         text: "No problem! Let me connect you with a member of our team."
@@ -691,8 +589,8 @@
         id: "company_overview",
         type: "text",
         triggers: [
-          "what do you do", "who are you", "about us", "about revcare", "what is revcare", 
-          "overview", "who is revcare", "company overview", "tell me about revcare", 
+          "what do you do", "who are you", "about us", "about revcare", "what is revcare",
+          "overview", "who is revcare", "company overview", "tell me about revcare",
           "revcare edge", "revcare", "what does revcare do", "what is your company"
         ],
         text: "RevCare Edge is a leading provider of medical billing and Revenue Cycle Management (RCM) solutions. We help healthcare practices maximize reimbursements, eliminate revenue leaks, ensure strict HIPAA compliance, and reduce administrative burden so providers can focus on patient care."
@@ -701,10 +599,10 @@
         id: "billing_rcm",
         type: "text",
         triggers: [
-          "medical billing", "rcm", "revenue cycle management", "claim submission", 
-          "claims submission", "denial management", "accounts receivable", "ar follow up", 
-          "vob", "verification of benefits", "medical coding", "hospice billing", 
-          "dental billing", "in-network billing", "out-of-network billing", "clean claims", 
+          "medical billing", "rcm", "revenue cycle management", "claim submission",
+          "claims submission", "denial management", "accounts receivable", "ar follow up",
+          "vob", "verification of benefits", "medical coding", "hospice billing",
+          "dental billing", "in-network billing", "out-of-network billing", "clean claims",
           "billing services", "claims processing", "reimbursements", "billing audit"
         ],
         text: "Our <strong>Medical Billing & RCM</strong> solutions cover the complete revenue cycle: 24-hour electronic claim submissions with a 99% acceptance rate, aggressive denial & AR management, verification of benefits (VOB), certified medical coding, and hospice/dental billing. Learn more on our <a href='services.html' class='text-[#3E7B4F] underline font-semibold'>Services Page</a>!"
@@ -713,9 +611,9 @@
         id: "credentialing",
         type: "text",
         triggers: [
-          "credentialing", "provider credentialing", "caqh", "caqh management", 
-          "payer enrollment", "insurance enrollment", "provider licensing", "group enrollment", 
-          "re-credentialing", "recredentialing", "medicare enrollment", "medicaid enrollment", 
+          "credentialing", "provider credentialing", "caqh", "caqh management",
+          "payer enrollment", "insurance enrollment", "provider licensing", "group enrollment",
+          "re-credentialing", "recredentialing", "medicare enrollment", "medicaid enrollment",
           "in-network enrollment", "enrollment services", "license renewal"
         ],
         text: "Our <strong>Credentialing & Payer Enrollment</strong> services manage initial provider credentialing, re-credentialing, CAQH profile setup & maintenance, commercial & government (Medicare/Medicaid) group enrollment, and licensing support to get your practice contracted and billing without delays."
@@ -724,8 +622,8 @@
         id: "practice_management",
         type: "text",
         triggers: [
-          "practice management", "virtual assistant", "virtual assistants", "billing manager", 
-          "medical scribe", "medical scribing", "patient help desk", "admin support", 
+          "practice management", "virtual assistant", "virtual assistants", "billing manager",
+          "medical scribe", "medical scribing", "patient help desk", "admin support",
           "remote assistant", "front desk support", "administrative support", "clinic management"
         ],
         text: "Our <strong>Practice Management</strong> services provide dedicated medical virtual assistants, billing managers, real-time medical scribing, and a patient help desk to streamline clinical workflows, lower overhead costs, and reduce staff burnout."
@@ -734,8 +632,8 @@
         id: "bookkeeping",
         type: "text",
         triggers: [
-          "bookkeeping", "accounting", "financial reporting", "revenue tracking", 
-          "cash flow", "financial management", "accountant", "practice accounting", 
+          "bookkeeping", "accounting", "financial reporting", "revenue tracking",
+          "cash flow", "financial management", "accountant", "practice accounting",
           "financial audit", "payroll", "expense tracking", "financial health"
         ],
         text: "We provide specialized <strong>Bookkeeping & Accounting Services</strong> for healthcare practices, including real-time revenue tracking, expense categorization, financial reporting, and cash flow management to keep your practice financially healthy and organized."
@@ -744,8 +642,8 @@
         id: "digital_growth",
         type: "text",
         triggers: [
-          "digital growth", "healthcare marketing", "medical website", "seo", 
-          "local seo", "patient acquisition", "social media management", "branding", 
+          "digital growth", "healthcare marketing", "medical website", "seo",
+          "local seo", "patient acquisition", "social media management", "branding",
           "clinic marketing", "website design", "marketing services", "digital marketing"
         ],
         text: "Our <strong>Healthcare Digital Growth</strong> services focus on custom medical website development, local SEO optimization, digital marketing campaigns, and social media branding to enhance your practice's online presence and attract new patients."
@@ -754,8 +652,8 @@
         id: "why_us",
         type: "text",
         triggers: [
-          "why us", "why choose revcare", "why revcare", "what makes you different", 
-          "differentiators", "why outsource", "benefits of revcare", "why choose us", 
+          "why us", "why choose revcare", "why revcare", "what makes you different",
+          "differentiators", "why outsource", "benefits of revcare", "why choose us",
           "advantages", "competitive advantage"
         ],
         text: "<strong>Why Healthcare Practices Choose RevCare Edge:</strong><br>• <strong>Healthcare Specialty Focus</strong>: 100% dedicated to medical RCM.<br>• <strong>99% Claim Acceptance</strong>: Clean claim submissions for faster payouts.<br>• <strong>Transparent Analytics</strong>: Real-time reporting & dashboards.<br>• <strong>No Long-Term Lock-in</strong>: Flexible monthly performance agreements.<br>• <strong>HIPAA Compliant</strong>: Bank-level data security."
@@ -764,7 +662,7 @@
         id: "process_overview",
         type: "text",
         triggers: [
-          "process", "how it works", "onboarding process", "steps", "onboarding", 
+          "process", "how it works", "onboarding process", "steps", "onboarding",
           "how do we start", "implementation process", "getting started steps"
         ],
         text: "Our <strong>6-Step Onboarding Process</strong>:<br>1. Free Practice Analysis & Audit<br>2. Custom Action Plan<br>3. System Integration & Setup<br>4. Dedicated RCM Team Assignment<br>5. Active Billing & Daily Monitoring<br>6. Performance & Replacement Guarantee"
@@ -773,7 +671,7 @@
         id: "process_step_free_analysis",
         type: "text",
         triggers: [
-          "free analysis", "practice audit", "revenue leak audit", "free audit", 
+          "free analysis", "practice audit", "revenue leak audit", "free audit",
           "audit", "billing review", "free assessment"
         ],
         text: "<strong>Step 1: Free Practice Analysis</strong> — We perform a comprehensive audit of your current billing, rejection rates, and AR to uncover hidden revenue leaks and coding errors within 24 hours — 100% free with zero obligation!"
@@ -822,7 +720,7 @@
         id: "specialties_overview",
         type: "text",
         triggers: [
-          "specialties", "what specialties", "specialty billing", "specialties supported", 
+          "specialties", "what specialties", "specialty billing", "specialties supported",
           "which specialties", "medical specialties", "all specialties"
         ],
         text: "We support billing for 30+ medical specialties, including Behavioral Health, Cardiology, Orthopedics, Pediatrics, Dermatology, Gastroenterology, Urgent Care, Neurology, Oncology, and more! Explore all on our <a href='specialties.html' class='text-[#3E7B4F] underline font-semibold'>Specialties Page</a>."
@@ -831,7 +729,7 @@
         id: "specialty_behavioral_health",
         type: "text",
         triggers: [
-          "behavioral health", "psychiatry", "psychology", "mental health", "substance abuse", 
+          "behavioral health", "psychiatry", "psychology", "mental health", "substance abuse",
           "addiction", "therapy billing", "behavioral health billing"
         ],
         text: "Yes! We specialize in <strong>Behavioral Health & Psychiatry</strong> billing, handling prior authorization tracking, telehealth billing rules, and complex CPT coding. See details on our <a href='specialties.html' class='text-[#3E7B4F] underline font-semibold'>Specialties Page</a>."
@@ -888,9 +786,9 @@
         id: "specialty_other",
         type: "text",
         triggers: [
-          "chiropractic", "physical therapy", "radiology", "obgyn", "obstetrics", 
-          "gynecology", "internal medicine", "family practice", "hospice", "dental", 
-          "ophthalmology", "ent", "otolaryngology", "pulmonology", "rheumatology", 
+          "chiropractic", "physical therapy", "radiology", "obgyn", "obstetrics",
+          "gynecology", "internal medicine", "family practice", "hospice", "dental",
+          "ophthalmology", "ent", "otolaryngology", "pulmonology", "rheumatology",
           "nephrology", "endocrinology", "anesthesiology", "pathology", "podiatry", "urology"
         ],
         text: "Yes! We provide specialized medical billing for that clinical field. We tailor coding rules, modifier usage, and payer authorizations to your specific specialty. Check our <a href='specialties.html' class='text-[#3E7B4F] underline font-semibold'>Specialties Page</a> for details!"
@@ -899,7 +797,7 @@
         id: "pricing",
         type: "text",
         triggers: [
-          "cost", "price", "pricing", "fee", "fees", "upfront", "contract", "rate", 
+          "cost", "price", "pricing", "fee", "fees", "upfront", "contract", "rate",
           "percentage", "commission", "how much", "terms", "no hidden fees", "monthly fee"
         ],
         text: "We operate on a <strong>performance-based pricing model</strong>: we only earn a small percentage of what we successfully collect for you. There are <strong>no upfront setup fees</strong>, no hidden charges, and flexible monthly agreements with <strong>no long-term lock-in contracts</strong>."
@@ -908,7 +806,7 @@
         id: "hipaa",
         type: "text",
         triggers: [
-          "hipaa", "compliant", "compliance", "security", "privacy", "phi", "secure", 
+          "hipaa", "compliant", "compliance", "security", "privacy", "phi", "secure",
           "encrypted", "data protection", "safe", "confidential"
         ],
         text: "RevCare Edge is 100% <strong>HIPAA-compliant</strong>. All patient health information (PHI), billing portals, and communication channels are protected with enterprise bank-level end-to-end encryption."
@@ -917,7 +815,7 @@
         id: "location_contact",
         type: "text",
         triggers: [
-          "location", "address", "where are you", "phone", "email", "contact", 
+          "location", "address", "where are you", "phone", "email", "contact",
           "office", "texas", "austin", "phone number", "email address", "where located"
         ],
         text: "Our headquarters is located in <strong>Texas, USA</strong>.<br>• <strong>Phone</strong>: <a href='tel:8482665475' class='text-[#3E7B4F] font-semibold'>848-266-5475</a><br>• <strong>Email</strong>: <a href='mailto:info@revcareedge.com' class='text-[#3E7B4F] font-semibold'>info@revcareedge.com</a><br>You can also use our website contact form to reach out directly!"
@@ -932,7 +830,7 @@
         id: "faq_emr_software",
         type: "text",
         triggers: [
-          "emr", "ehr", "software", "kareo", "epic", "eclinicalworks", "athenahealth", 
+          "emr", "ehr", "software", "kareo", "epic", "eclinicalworks", "athenahealth",
           "drchrono", "advancedmd", "system integration", "compatibility"
         ],
         text: "We integrate seamlessly with all major EHR/EMR platforms (AthenaHealth, Epic, eClinicalWorks, Kareo, DrChrono, AdvancedMD, etc.) or operate directly inside your existing software with zero migration required."
@@ -1042,7 +940,7 @@
       showTypingIndicator();
       setTimeout(() => {
         hideTypingIndicator();
-        
+
         if (botResponse.type === "handoff") {
           handoffToHuman();
         } else if (botResponse.type === "fallback") {
@@ -1088,7 +986,7 @@
             tawk.maximize();
             hideConnectingIndicator();
             return true;
-          } catch(e) {
+          } catch (e) {
             console.error("Tawk.to launch error:", e);
             hideConnectingIndicator();
             fallbackHandoff();
@@ -1104,7 +1002,7 @@
       // If Tawk.to is still downloading/initializing in background, set onLoad listener + poll for up to 6s
       window.Tawk_API = window.Tawk_API || {};
       const prevOnLoad = window.Tawk_API.onLoad;
-      window.Tawk_API.onLoad = function() {
+      window.Tawk_API.onLoad = function () {
         if (prevOnLoad) prevOnLoad();
         launchTawk();
       };
