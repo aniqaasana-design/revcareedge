@@ -67,7 +67,7 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      background-color: #ffffff;
+      background-color: #101828;
       border: 1.5px solid #3E7B4F;
       border-radius: 30px;
       padding: 12px 20px;
@@ -79,7 +79,7 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px;
       font-weight: 600;
-      color: #101828;
+      color: #ffffff;
       opacity: 0;
       transform: translateY(12px) scale(0.95);
       pointer-events: none;
@@ -93,7 +93,7 @@
     .revcare-spinner {
       width: 16px;
       height: 16px;
-      border: 2.2px solid #E2E8F0;
+      border: 2.2px solid rgba(255, 255, 255, 0.2);
       border-top-color: #3E7B4F;
       border-radius: 50%;
       animation: revcare-spin 0.75s linear infinite;
@@ -101,7 +101,6 @@
     @keyframes revcare-spin {
       to { transform: rotate(360deg); }
     }
-
     #revcare-chat-trigger {
       position: fixed;
       bottom: 24px;
@@ -162,7 +161,7 @@
     }
     
     #revcare-chat-header {
-      background-color: #3E7B4F;
+      background-color: #101828;
       color: #ffffff;
       padding: 16px;
       display: flex;
@@ -202,7 +201,7 @@
       width: 12px;
       height: 12px;
       background-color: #4ADE80;
-      border: 2px solid #3E7B4F;
+      border: 2px solid #101828;
       border-radius: 50%;
     }
     
@@ -262,17 +261,27 @@
     }
     
     .revcare-chat-msg.bot {
-      background-color: #E2E8F0;
-      color: #101828;
+      background-color: #3E7B4F;
+      color: #ffffff;
       align-self: flex-start;
-      border-bottom-left-radius: 2px;
+      border-radius: 12px;
+    }
+    
+    .revcare-chat-msg.bot a {
+      color: #ffffff;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    
+    .revcare-chat-msg.bot a:hover {
+      color: #F5872E;
     }
     
     .revcare-chat-msg.user {
-      background-color: #3E7B4F;
-      color: #ffffff;
+      background-color: #F0F2F5;
+      color: #101828;
       align-self: flex-end;
-      border-bottom-right-radius: 2px;
+      border-radius: 12px;
     }
     
     .revcare-chat-msg.system-bot {
@@ -374,9 +383,8 @@
       align-items: center;
       gap: 4px;
       padding: 12px 16px;
-      background-color: #E2E8F0;
-      border-radius: 14px;
-      border-bottom-left-radius: 2px;
+      background-color: #3E7B4F;
+      border-radius: 12px;
       align-self: flex-start;
       max-width: 80%;
       animation: revcare-fade-in-slide 0.3s ease forwards;
@@ -385,7 +393,7 @@
     .typing-indicator span {
       width: 6px;
       height: 6px;
-      background-color: #475569;
+      background-color: rgba(255, 255, 255, 0.7);
       border-radius: 50%;
       animation: bounce 1.3s infinite ease-in-out;
     }
