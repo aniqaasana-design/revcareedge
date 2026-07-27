@@ -826,7 +826,7 @@
           "location", "address", "where are you", "phone", "email", "contact",
           "office", "texas", "austin", "phone number", "email address", "where located"
         ],
-        text: "Our headquarters is located in <strong>Texas, USA</strong>.<br>• <strong>Phone</strong>: <a href='tel:8482665475' class='text-[#3E7B4F] font-semibold'>848-266-5475</a><br>• <strong>Email</strong>: <a href='mailto:info@revcareedge.com' class='text-[#3E7B4F] font-semibold'>info@revcareedge.com</a><br>You can also use our website contact form to reach out directly!"
+        text: "Our headquarters is located in <strong>Texas, USA</strong>.<br>• <strong>Phone</strong>: <a href='tel:8482665475' class='text-[#3E7B4F] font-semibold'>848-266-5475</a><br>• <strong>Email</strong>: <a href='mailto:contact@revcareedge.com' class='text-[#3E7B4F] font-semibold'>contact@revcareedge.com</a><br>You can also use our website contact form to reach out directly!"
       },
       {
         id: "faq_claim_speed",
@@ -1036,7 +1036,7 @@
       const trg = document.getElementById('revcare-chat-trigger');
       if (trg) trg.style.display = 'none';
 
-      addMessage("system-bot", "I'm trying to connect you to a live agent, but our live support channels are currently offline or unavailable. Please email us at <strong>info@revcareedge.com</strong> or call <strong>848-266-5475</strong> for immediate assistance!");
+      addMessage("system-bot", "I'm trying to connect you to a live agent, but our live support channels are currently offline or unavailable. Please email us at <strong>contact@revcareedge.com</strong> or call <strong>848-266-5475</strong> for immediate assistance!");
     }
 
     // --- EVENT LISTENERS FOR SEND ---
